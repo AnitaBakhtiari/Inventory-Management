@@ -30,3 +30,4 @@ C:\Users\at.bakhtiari\source\repos\Inventory-Management\src\Inventory-Management
 C:\Users\at.bakhtiari\source\repos\Inventory-Management\src\Inventory-Management\obj\Debug\net8.0\Inventory-Management.pdb
 C:\Users\at.bakhtiari\source\repos\Inventory-Management\src\Inventory-Management\obj\Debug\net8.0\Inventory-Management.genruntimeconfig.cache
 C:\Users\at.bakhtiari\source\repos\Inventory-Management\src\Inventory-Management\obj\Debug\net8.0\ref\Inventory-Management.dll
+C:\Users\at.bakhtiari\source\repos\Inventory-Management\src\Inventory-Management\obj\Debug\net8.0\Inventory-Management.sourcelink.json
