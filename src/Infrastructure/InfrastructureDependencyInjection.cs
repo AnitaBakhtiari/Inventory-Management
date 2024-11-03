@@ -11,7 +11,6 @@ namespace InventoryManagement.Infrastructure
         public static IServiceCollection AddInfrastructureDependencyInjections(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddScoped<IProductRepository, ProductRepository>();
-            services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IInventoryChangeRepository, InventoryChangeRepository>();
 
             services.AddDbContext<InventoryManagementDbContext>((sp, options) => options.UseSqlServer(configuration.GetConnectionString("SqlDB")));

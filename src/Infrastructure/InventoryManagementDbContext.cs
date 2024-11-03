@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace InventoryManagement.Infrastructure
 {
-    public class InventoryManagementDbContext : DbContext
+    public class InventoryManagementDbContext(DbContextOptions<InventoryManagementDbContext> options) : DbContext(options)
     {
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductInstance> ProductInstances { get; set; }
