@@ -1,4 +1,5 @@
 using Inventory_Management.Api.Middleware;
+using Inventory_Management.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,7 +9,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddMediatR(cf => cf.RegisterServicesFromAssembly(typeof(Program).Assembly));
-
+builder.Services.AddInfrastructureDependencyInjections(builder.Configuration);
 
 var app = builder.Build();
 
