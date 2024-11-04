@@ -25,7 +25,9 @@ namespace InventoryManagement.Infrastructure.Domain.ProductConfiguration
 
         public async Task<Product?> GetByIdAsync(long productId)
         {
-            return await _dbContext.Products.FindAsync(productId);
+            return await _dbContext.Products
+                                   .Include(x => x.ProductInstances)
+                                   .FirstOrDefaultAsync(x => x.Id == productId);
         }
     }
 }
