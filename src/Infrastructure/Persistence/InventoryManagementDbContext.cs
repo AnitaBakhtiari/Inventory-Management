@@ -2,7 +2,7 @@
 using InventoryManagement.Domain.Products;
 using Microsoft.EntityFrameworkCore;
 
-namespace InventoryManagement.Infrastructure
+namespace InventoryManagement.Infrastructure.Persistence
 {
     public class InventoryManagementDbContext(DbContextOptions<InventoryManagementDbContext> options) : DbContext(options)
     {
@@ -13,7 +13,7 @@ namespace InventoryManagement.Infrastructure
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.UseHiLo();
-            modelBuilder.ApplyConfigurationsFromAssembly(this.GetType().Assembly);
+            modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly);
         }
     }
 }

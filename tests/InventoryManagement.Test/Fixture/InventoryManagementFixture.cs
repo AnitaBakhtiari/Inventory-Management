@@ -1,7 +1,7 @@
 ﻿using InventoryManagement.Domain.InventoryChanges;
 using InventoryManagement.Domain.Products;
 using InventoryManagement.Extensions;
-using InventoryManagement.Infrastructure;
+using InventoryManagement.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

@@ -1,7 +1,7 @@
 ﻿using InventoryManagement.Domain.Products;
 using Microsoft.EntityFrameworkCore;
 
-namespace InventoryManagement.Infrastructure.Domain.ProductConfiguration
+namespace InventoryManagement.Infrastructure.Persistence.Domain.ProductConfiguration
 {
     public class ProductRepository : IProductRepository
     {

@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using InventoryManagement.Infrastructure.Persistence;
+using MediatR;
 
 namespace InventoryManagement.Infrastructure.Behavior
 {

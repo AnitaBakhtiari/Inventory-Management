@@ -2,7 +2,7 @@
 using InventoryManagement.Application.Exceptions;
 using InventoryManagement.Domain.InventoryChanges;
 using InventoryManagement.Domain.Products;
-using InventoryManagement.Infrastructure;
+using InventoryManagement.Infrastructure.Persistence;
 using InventoryManagement.Test.Fixture;
 using MediatR;
 using Microsoft.EntityFrameworkCore;

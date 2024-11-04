@@ -1,7 +1,7 @@
 ﻿using InventoryManagement.Domain.InventoryChanges;
 using Microsoft.EntityFrameworkCore;
 
-namespace InventoryManagement.Infrastructure.Domain.InventoryChangeConfiguration
+namespace InventoryManagement.Infrastructure.Persistence.Domain.InventoryChangeConfiguration
 {
     public class InventoryChangeRepository : IInventoryChangeRepository
     {
@@ -15,7 +15,7 @@ namespace InventoryManagement.Infrastructure.Domain.InventoryChangeConfiguration
         public async Task AddAsync(InventoryChange inventoryChange)
         {
             await _dbContext.AddAsync(inventoryChange);
-            
+
         }
 
         public Task<InventoryChange?> GetByIdAsync(Guid inventoryChangeId)

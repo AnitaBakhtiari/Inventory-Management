@@ -1,10 +1,10 @@
 ﻿using InventoryManagement.Application.Commands;
 using InventoryManagement.Domain.Products;
-using InventoryManagement.Infrastructure;
 using InventoryManagement.Test.Fixture;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using MediatR;
+using InventoryManagement.Infrastructure.Persistence;
 
 namespace InventoryManagement.Test.Integration
 {
