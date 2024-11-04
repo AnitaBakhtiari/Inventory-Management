@@ -1,5 +1,4 @@
 ﻿using InventoryManagement.Domain.Products;
-using System.Globalization;
 
 namespace InventoryManagement.Domain.InventoryChanges
 {
