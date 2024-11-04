@@ -1,7 +1,7 @@
-﻿namespace InventoryManagement.Domain.Product
+﻿namespace InventoryManagement.Domain.Products
 {
     public enum ProductType
     {
-        laptop
+        Laptop
     }
 }
