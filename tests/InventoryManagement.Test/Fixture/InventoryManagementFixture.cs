@@ -1,0 +1,132 @@
+﻿using InventoryManagement.Domain.InventoryChanges;
+using InventoryManagement.Domain.Products;
+using InventoryManagement.Extensions;
+using InventoryManagement.Infrastructure;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+
+
+namespace InventoryManagement.Test.Fixture
+{
+    public class InventoryManagementFixture
+    {
+        private IServiceCollection _service;
+
+        public InventoryManagementFixture Build(string databaseName)
+        {
+
+            var builder = new ConfigurationBuilder().Build();
+
+            _service = new ServiceCollection()
+                .AddDependencyInjections()
+                .AddDbContext<InventoryManagementDbContext>(x => x.UseInMemoryDatabase(databaseName));
+
+            return this;
+        }
+
+        public IServiceProvider BuildServiceProvider()
+        {
+            return _service.BuildServiceProvider().CreateScope().ServiceProvider;
+        }
+
+        public InventoryManagementFixture WithSeedData()
+        {
+            var serviceProvider = BuildServiceProvider();
+            var dbContext = serviceProvider.GetRequiredService<InventoryManagementDbContext>();
+
+            var products = CreateProducts();
+            var productInstances = CreateProductInstances(products);
+            var inventoryChanges = CreateInventoryChanges(productInstances);
+
+            dbContext.AddRange(inventoryChanges);
+            dbContext.AddRange(products);
+
+            dbContext.SaveChanges();
+
+            return this;
+
+        }
+
+        private static List<Product> CreateProducts()
+        {
+            return new List<Product>
+        {
+            new Product
+            {
+                Id = 101,
+                BrandName = "BrandA",
+                Type = ProductType.Laptop,
+                CreatedAt = DateTime.Now
+            },
+            new Product
+            {
+                Id = 102,
+                BrandName = "BrandB",
+                Type = ProductType.Laptop,
+                CreatedAt = DateTime.Now
+            }
+        };
+        }
+
+        private static List<ProductInstance> CreateProductInstances(List<Product> products)
+        {
+            var productInstances = new List<ProductInstance>
+        {
+            new ProductInstance
+            {
+                SerialNumber = "SN001",
+                CreatedOn = DateTime.Now,
+                IsAvailable = true,
+                ProductId = products[0].Id,
+                Product = products[0]
+            },
+            new ProductInstance
+            {
+                SerialNumber = "SN002",
+                CreatedOn =DateTime.Now,
+                IsAvailable = true,
+                ProductId = products[0].Id,
+                Product = products[0]
+            },
+            new ProductInstance
+            {
+                SerialNumber = "SN003",
+                CreatedOn = DateTime.Now,
+                IsAvailable = false,
+                ProductId = products[1].Id,
+                Product = products[1]
+            }
+        };
+
+            products[0].AddProductInstances(productInstances.Take(2).ToList());
+            products[1].AddProductInstances(productInstances.Skip(2).Take(1).ToList());
+
+            return productInstances;
+        }
+
+        private static List<InventoryChange> CreateInventoryChanges(List<ProductInstance> productInstances)
+        {
+            var inventoryChangeIn = new InventoryChange
+            {
+                Id = Guid.NewGuid(),
+                Type = InventoryChangeType.In,
+                CreatedOn = DateTime.Now,
+                ProductInstances = productInstances.ToList()
+            };
+
+            var inventoryChangeOut = new InventoryChange
+            {
+                Id = Guid.NewGuid(),
+                Type = InventoryChangeType.Out,
+                CreatedOn = DateTime.Now,
+                ProductInstances = new List<ProductInstance> { productInstances[2] }
+            };
+
+            return [inventoryChangeIn, inventoryChangeOut];
+        }
+
+    }
+}
+
+
