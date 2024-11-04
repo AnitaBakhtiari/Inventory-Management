@@ -1,4 +1,4 @@
-﻿namespace InventoryManagement.Infrastructure
+﻿namespace InventoryManagement.Infrastructure.Persistence
 {
     public interface IUnitOfWork
     {

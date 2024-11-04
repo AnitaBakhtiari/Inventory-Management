@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace InventoryManagement.Infrastructure
+namespace InventoryManagement.Infrastructure.Persistence
 {
     public sealed class UnitOfWork(InventoryManagementDbContext context) : IUnitOfWork
     {

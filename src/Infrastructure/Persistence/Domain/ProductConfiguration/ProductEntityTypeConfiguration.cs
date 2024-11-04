@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace InventoryManagement.Infrastructure.Domain.ProductConfiguration
+namespace InventoryManagement.Infrastructure.Persistence.Domain.ProductConfiguration
 {
     public class ProductEntityTypeConfiguration : IEntityTypeConfiguration<Product>
     {

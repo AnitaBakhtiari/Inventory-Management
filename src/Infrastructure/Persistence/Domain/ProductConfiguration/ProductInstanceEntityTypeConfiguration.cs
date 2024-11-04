@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace InventoryManagement.Infrastructure.Domain.ProductConfiguration
+namespace InventoryManagement.Infrastructure.Persistence.Domain.ProductConfiguration
 {
     public class ProductInstanceEntityTypeConfiguration : IEntityTypeConfiguration<ProductInstance>
     {
@@ -11,6 +11,9 @@ namespace InventoryManagement.Infrastructure.Domain.ProductConfiguration
             builder.HasMany(x => x.InventoryChanges)
                    .WithMany(x => x.ProductInstances)
                    .UsingEntity(x => x.ToTable("InventoryChangeProductInstance"));
+
+            builder.Property(x => x.SerialNumber).HasColumnType("varchar(100)");
+
         }
     }
 }
