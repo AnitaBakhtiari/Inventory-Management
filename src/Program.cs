@@ -1,6 +1,10 @@
-using InventoryManagement.Infrastructure;
+using InventoryManagement.Application.Commands;
+using InventoryManagement.Application.Queries;
+using InventoryManagement.Extensions;
 using InventoryManagement.Middleware;
-using Microsoft.EntityFrameworkCore;
+using InventoryManagement.Models;
+using MediatR;
+
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,7 +14,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<InventoryManagementDbContext>((sp, options) => options.UseSqlServer(builder.Configuration.GetConnectionString("SqlDB")));
+builder.Services.AddDbContext(builder.Configuration);
 
 builder.Services.AddDependencyInjections();
 
@@ -18,8 +22,9 @@ var app = builder.Build();
 
 app.UseSwagger();
 app.UseSwaggerUI();
-app.UseMiddleware<ErrorHandlerMiddleware>();
 app.UseHttpsRedirection();
+
+app.UseMiddleware<ErrorHandlerMiddleware>();
 
 app.UseAuthorization();
 
