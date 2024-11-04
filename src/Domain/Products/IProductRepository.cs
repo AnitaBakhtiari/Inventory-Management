@@ -1,8 +1,9 @@
-﻿namespace InventoryManagement.Domain.Product.Products
+﻿namespace InventoryManagement.Domain.Products
 {
     public interface IProductRepository
     {
         Task AddAsync(Product product);
         Task<Product?> GetByBrandNameAndProductTypeAsync(string brandName, ProductType productType);
+        Task<Product?> GetByIdAsync(long productId);
     }
 }

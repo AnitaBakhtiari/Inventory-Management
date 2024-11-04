@@ -1,5 +1,4 @@
-﻿using InventoryManagement.Domain.Product;
-using InventoryManagement.Domain.Product.Products;
+﻿using InventoryManagement.Domain.Products;
 using Microsoft.EntityFrameworkCore;
 
 namespace InventoryManagement.Infrastructure.Domain.ProductConfiguration
@@ -24,5 +23,9 @@ namespace InventoryManagement.Infrastructure.Domain.ProductConfiguration
             return _dbContext.Products.FirstOrDefaultAsync(x => x.BrandName == brandName && x.Type == productType);
         }
 
+        public async Task<Product?> GetByIdAsync(long productId)
+        {
+            return await _dbContext.Products.FindAsync(productId);
+        }
     }
 }
