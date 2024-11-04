@@ -3,7 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35219.272
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Inventory-Management", "src\Inventory-Management.csproj", "{B6844A28-D0A4-4F78-A83F-CA21D49A91EC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InventoryManagement", "src\InventoryManagement.csproj", "{B6844A28-D0A4-4F78-A83F-CA21D49A91EC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{58C36496-54C5-4C1F-B0CC-62BA7EACE5B8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InventoryManagement.Test", "tests\InventoryManagement.Test\InventoryManagement.Test.csproj", "{A004695D-8095-42F9-8127-86F7F541636B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{0B4209FE-518B-4217-B16A-D908534D3E56}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,9 +21,17 @@ Global
 		{B6844A28-D0A4-4F78-A83F-CA21D49A91EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B6844A28-D0A4-4F78-A83F-CA21D49A91EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B6844A28-D0A4-4F78-A83F-CA21D49A91EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A004695D-8095-42F9-8127-86F7F541636B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A004695D-8095-42F9-8127-86F7F541636B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A004695D-8095-42F9-8127-86F7F541636B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A004695D-8095-42F9-8127-86F7F541636B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B6844A28-D0A4-4F78-A83F-CA21D49A91EC} = {0B4209FE-518B-4217-B16A-D908534D3E56}
+		{A004695D-8095-42F9-8127-86F7F541636B} = {58C36496-54C5-4C1F-B0CC-62BA7EACE5B8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AF2A12DD-743C-4DA3-A36E-C8C2B3A71672}
