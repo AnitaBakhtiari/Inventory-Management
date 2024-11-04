@@ -1,12 +1,15 @@
 ﻿using InventoryManagement.Domain.InventoryChanges;
 using InventoryManagement.Domain.Products;
+using InventoryManagement.Infrastructure;
 using InventoryManagement.Infrastructure.Behavior;
 using InventoryManagement.Infrastructure.Domain.InventoryChangeConfiguration;
 using InventoryManagement.Infrastructure.Domain.ProductConfiguration;
+using Microsoft.EntityFrameworkCore;
 
-namespace InventoryManagement.Infrastructure
+
+namespace InventoryManagement.Extensions
 {
-    public static class DependencyInjection
+    public static class ServiceCollectionExtensions
     {
         public static IServiceCollection AddDependencyInjections(this IServiceCollection services)
         {
@@ -20,6 +23,13 @@ namespace InventoryManagement.Infrastructure
                 cf.AddOpenBehavior(typeof(UnitOfWorkBehavior<,>));
             });
 
+            return services;
+
+        }
+
+        public static IServiceCollection AddDbContext(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddDbContext<InventoryManagementDbContext>((sp, options) => options.UseSqlServer(configuration.GetConnectionString("SqlDB")));
             return services;
 
         }
