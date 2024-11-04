@@ -1,4 +1,4 @@
-﻿using InventoryManagement.Domain.Product;
+﻿using InventoryManagement.Domain.Products;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -8,7 +8,9 @@ namespace InventoryManagement.Infrastructure.Domain.ProductConfiguration
     {
         public void Configure(EntityTypeBuilder<Product> builder)
         {
-            builder.Property(x=>x.BrandName).HasMaxLength(100);
+            builder.Property(x => x.BrandName).HasMaxLength(100);
+
+            builder.Ignore(x => x.GetAvailableProductInstance);
 
         }
     }

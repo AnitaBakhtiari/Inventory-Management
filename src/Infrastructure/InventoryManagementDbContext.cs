@@ -1,5 +1,5 @@
 ﻿using InventoryManagement.Domain.InventoryChanges;
-using InventoryManagement.Domain.Product;
+using InventoryManagement.Domain.Products;
 using Microsoft.EntityFrameworkCore;
 
 namespace InventoryManagement.Infrastructure
@@ -10,6 +10,10 @@ namespace InventoryManagement.Infrastructure
         public DbSet<ProductInstance> ProductInstances { get; set; }
         public DbSet<InventoryChange> InventoryChanges { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder) => modelBuilder.ApplyConfigurationsFromAssembly(this.GetType().Assembly);
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.UseHiLo();
+            modelBuilder.ApplyConfigurationsFromAssembly(this.GetType().Assembly);
+        }
     }
 }

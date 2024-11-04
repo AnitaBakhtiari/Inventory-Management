@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-namespace InventoryManagement.Api.Middleware;
+namespace InventoryManagement.Middleware;
 
 public class ErrorHandlerMiddleware
 {

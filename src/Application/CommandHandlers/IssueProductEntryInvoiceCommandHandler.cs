@@ -1,24 +1,23 @@
-﻿using InventoryManagement.Domain.InventoryChanges;
-using InventoryManagement.Domain.Product;
-using InventoryManagement.Domain.Product.Products;
+﻿using InventoryManagement.Application.Commands;
+using InventoryManagement.Domain.InventoryChanges;
+using InventoryManagement.Domain.Products;
 using MediatR;
 
-namespace InventoryManagement.Application.Commands
+namespace InventoryManagement.Application.CommandHandlers
 {
-    public record ProductInstanceInventoryCommand(string BrandName, ProductType ProductType, int InventoryCount, List<string> SerialNumbers) : IRequest<string>;
 
-    public class AddProductInstanceInventoryCommandHandler : IRequestHandler<ProductInstanceInventoryCommand, string>
+    public sealed class IssueProductEntryInvoiceCommandHandler : IRequestHandler<ProductEntryInvoiceCommand, string>
     {
         private readonly IProductRepository _productRepository;
         private readonly IInventoryChangeRepository _inventoryChangeRepository;
 
-        public AddProductInstanceInventoryCommandHandler(IProductRepository productRepository, IInventoryChangeRepository inventoryChangeRepository)
+        public IssueProductEntryInvoiceCommandHandler(IProductRepository productRepository, IInventoryChangeRepository inventoryChangeRepository)
         {
             _productRepository = productRepository;
             _inventoryChangeRepository = inventoryChangeRepository;
         }
 
-        public async Task<string> Handle(ProductInstanceInventoryCommand request, CancellationToken cancellationToken)
+        public async Task<string> Handle(ProductEntryInvoiceCommand request, CancellationToken cancellationToken)
         {
 
             var product = await _productRepository.GetByBrandNameAndProductTypeAsync(request.BrandName, request.ProductType);
