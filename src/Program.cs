@@ -6,6 +6,7 @@ using InventoryManagement.Models;
 using MediatR;
 
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
@@ -14,6 +15,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext(builder.Configuration);
+
 builder.Services.AddDependencyInjections();
 
 var app = builder.Build();
