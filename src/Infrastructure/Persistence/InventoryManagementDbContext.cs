@@ -8,7 +8,7 @@ namespace InventoryManagement.Infrastructure.Persistence
     {
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductInstance> ProductInstances { get; set; }
-        public DbSet<InventoryChange> InventoryChanges { get; set; }
+        public DbSet<IssuanceDocument> IssuanceDocuments { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

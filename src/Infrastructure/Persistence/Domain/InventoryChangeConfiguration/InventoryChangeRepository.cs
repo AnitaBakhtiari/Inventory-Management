@@ -3,27 +3,27 @@ using Microsoft.EntityFrameworkCore;
 
 namespace InventoryManagement.Infrastructure.Persistence.Domain.InventoryChangeConfiguration
 {
-    public class InventoryChangeRepository : IInventoryChangeRepository
+    public class IssuanceDocumentRepository : IIssuanceDocumentRepository
     {
         private readonly InventoryManagementDbContext _dbContext;
 
-        public InventoryChangeRepository(InventoryManagementDbContext dbContext)
+        public IssuanceDocumentRepository(InventoryManagementDbContext dbContext)
         {
             _dbContext = dbContext;
         }
 
-        public async Task AddAsync(InventoryChange inventoryChange)
+        public async Task AddAsync(IssuanceDocument IssuanceDocument)
         {
-            await _dbContext.AddAsync(inventoryChange);
+            await _dbContext.AddAsync(IssuanceDocument);
 
         }
 
-        public Task<InventoryChange?> GetByIdAsync(Guid inventoryChangeId)
+        public Task<IssuanceDocument?> GetByIdAsync(Guid IssuanceDocumentId)
         {
-            return _dbContext.InventoryChanges
+            return _dbContext.IssuanceDocuments
                              .Include(ic => ic.ProductInstances)
                              .ThenInclude(pi => pi.Product)
-                             .FirstOrDefaultAsync(ic => ic.Id == inventoryChangeId);
+                             .FirstOrDefaultAsync(ic => ic.Id == IssuanceDocumentId);
         }
     }
 }

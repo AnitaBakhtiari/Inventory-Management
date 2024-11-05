@@ -1,6 +1,6 @@
 ﻿namespace InventoryManagement.Domain.InventoryChanges
 {
-    public enum InventoryChangeType
+    public enum IssuanceDocumentType
     {
         Entry,
         Exit

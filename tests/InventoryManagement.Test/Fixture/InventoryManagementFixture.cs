@@ -37,9 +37,9 @@ namespace InventoryManagement.Test.Fixture
 
             var products = CreateProducts();
             var productInstances = CreateProductInstances(products);
-            var inventoryChanges = CreateInventoryChanges(productInstances);
+            var IssuanceDocuments = CreateIssuanceDocuments(productInstances);
 
-            dbContext.AddRange(inventoryChanges);
+            dbContext.AddRange(IssuanceDocuments);
             dbContext.AddRange(products);
 
             dbContext.SaveChanges();
@@ -105,25 +105,25 @@ namespace InventoryManagement.Test.Fixture
             return productInstances;
         }
 
-        private static List<InventoryChange> CreateInventoryChanges(List<ProductInstance> productInstances)
+        private static List<IssuanceDocument> CreateIssuanceDocuments(List<ProductInstance> productInstances)
         {
-            var inventoryChangeIn = new InventoryChange
+            var IssuanceDocumentIn = new IssuanceDocument
             {
                 Id = Guid.NewGuid(),
-                Type = InventoryChangeType.Entry,
+                Type = IssuanceDocumentType.Entry,
                 CreatedOn = DateTime.Now,
                 ProductInstances = productInstances.ToList()
             };
 
-            var inventoryChangeOut = new InventoryChange
+            var IssuanceDocumentOut = new IssuanceDocument
             {
                 Id = Guid.NewGuid(),
-                Type = InventoryChangeType.Exit,
+                Type = IssuanceDocumentType.Exit,
                 CreatedOn = DateTime.Now,
                 ProductInstances = new List<ProductInstance> { productInstances[2] }
             };
 
-            return [inventoryChangeIn, inventoryChangeOut];
+            return [IssuanceDocumentIn, IssuanceDocumentOut];
         }
 
     }

@@ -7,30 +7,30 @@ using InventoryManagement.Domain.Products;
 using InventoryManagement.Infrastructure.Persistence;
 using NSubstitute;
 
-public class InventoryExistCommandHandlerTests
+public class ExistIssuanceCommandHandlerTests
 {
     private readonly IProductRepository _productRepository;
-    private readonly IInventoryChangeRepository _inventoryChangeRepository;
+    private readonly IIssuanceDocumentRepository _IssuanceDocumentRepository;
     private readonly IUnitOfWork _unitOfWork;
 
-    private readonly InventoryExistCommandHandler _sut;
+    private readonly ExistIssuanceCommandHandler _sut;
 
-    public InventoryExistCommandHandlerTests()
+    public ExistIssuanceCommandHandlerTests()
     {
         _productRepository = Substitute.For<IProductRepository>();
-        _inventoryChangeRepository = Substitute.For<IInventoryChangeRepository>();
+        _IssuanceDocumentRepository = Substitute.For<IIssuanceDocumentRepository>();
         _unitOfWork = Substitute.For<IUnitOfWork>();
 
-        _sut = new InventoryExistCommandHandler(_productRepository, _inventoryChangeRepository, _unitOfWork);
+        _sut = new ExistIssuanceCommandHandler(_productRepository, _IssuanceDocumentRepository, _unitOfWork);
     }
 
     [Fact]
     public async Task Handle_ShouldThrowBusinessException_WhenProductNotFound()
     {
         // Arrange
-        var command = new InventoryExistCommand
+        var command = new ExistIssuanceCommand
         (
-            InventoryExistItems: new List<InventoryExistItem>
+            ExistIssuanceDocumentItems: new List<ExistIssuanceDocumentItem>
             {
                 new ( ProductId : 999, Quantity : 5 )
             }
@@ -49,9 +49,9 @@ public class InventoryExistCommandHandlerTests
     public async Task Handle_ShouldThrowBusinessException_WhenInsufficientInventory()
     {
         // Arrange
-        var command = new InventoryExistCommand
+        var command = new ExistIssuanceCommand
          (
-           InventoryExistItems: new List<InventoryExistItem>
+           ExistIssuanceDocumentItems: new List<ExistIssuanceDocumentItem>
            {
              new ( ProductId : 1, Quantity : 5)
            }
