@@ -16,15 +16,17 @@ namespace InventoryManagement.Application.CommandHandlers
         {
             ValidateCommandRequest(request);
 
-            var productInstance = await _unitOfWork.ProductInstanceRepository.GetBySerialNumberAsync(request.SerialNumber)
-                   ?? throw new BusinessException(ExceptionMessages.ProductSerialNumberNotFound, (int)HttpStatusCode.NotFound);
+            var (product, productInstance) = await _unitOfWork.ProductRepository.GetBySerialNumberAsync(request.SerialNumber);
+
+            if (product == null)
+            {
+                throw new BusinessException(ExceptionMessages.ProductSerialNumberNotFound, (int)HttpStatusCode.NotFound);
+            }
 
             if (productInstance.IsAvailable)
             {
                 throw new BusinessException(ExceptionMessages.productInstanceIsExist, (int)HttpStatusCode.NotFound);
             }
-
-            var product = productInstance.Product;
 
             product.IncreaseProductInstanceInventory([productInstance.SerialNumber]);
 
