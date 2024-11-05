@@ -6,7 +6,7 @@ namespace InventoryManagement.Domain.Products
     public class Product
     {
         public long Id { get; set; }
-        public required string BrandName { get; set; } 
+        public required string BrandName { get; set; }
         public ProductType Type { get; set; }
         public DateTime CreatedAt { get; set; }
 
@@ -34,18 +34,16 @@ namespace InventoryManagement.Domain.Products
                 throw new BusinessException(ExceptionMessages.QuantityGreaterThanZero, (int)HttpStatusCode.PreconditionFailed);
             }
 
-            var availableProductInstances = ProductInstances.Where(x => x.IsAvailable).Take(quantity).ToList();
-
-            if (availableProductInstances.Count == 0)
+            if (!HasInventory(quantity))
             {
                 throw new BusinessException(ExceptionMessages.OutOfInventory, (int)HttpStatusCode.PreconditionFailed);
             }
 
+            var availableProductInstances = GetAvailableProductInstance.Take(quantity).ToList();
+
             availableProductInstances.ForEach(instance => instance.IsAvailable = false);
 
-            var effectedProductInstances = availableProductInstances.ToList();
-
-            return effectedProductInstances;
+            return availableProductInstances;
 
         }
 

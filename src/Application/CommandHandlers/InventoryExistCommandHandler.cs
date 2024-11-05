@@ -23,7 +23,7 @@ namespace InventoryManagement.Application.CommandHandlers
         {
             List<ProductInstance> productInstances = new();
 
-            foreach (var request in requests.ProductExitInvoiceItems)
+            foreach (var request in requests.InventoryExistItems)
             {
                 var product = await _productRepository.GetByIdAsync(request.ProductId) ?? throw new BusinessException(ExceptionMessages.ProductNotFound, (int)HttpStatusCode.NotFound);
 
@@ -36,7 +36,7 @@ namespace InventoryManagement.Application.CommandHandlers
                 productInstances.AddRange(effectedProductInstances);
             }
 
-            var inventoryChange = InventoryChange.Create(InventoryChangeType.Exit, productInstances);
+            var inventoryChange = InventoryChange.CreateExit(productInstances);
             await _inventoryChangeRepository.AddAsync(inventoryChange);
 
             return inventoryChange.Id.ToString();

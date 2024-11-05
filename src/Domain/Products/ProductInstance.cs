@@ -1,5 +1,4 @@
-﻿using Azure.Core;
-using InventoryManagement.Domain.InventoryChanges;
+﻿using InventoryManagement.Domain.InventoryChanges;
 
 namespace InventoryManagement.Domain.Products
 {

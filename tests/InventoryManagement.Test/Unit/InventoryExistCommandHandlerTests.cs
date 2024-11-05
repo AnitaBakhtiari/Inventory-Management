@@ -6,13 +6,13 @@ using InventoryManagement.Domain.InventoryChanges;
 using InventoryManagement.Domain.Products;
 using NSubstitute;
 
-public class IssueProductExitInvoiceCommandHandlerTests
+public class InventoryExistCommandHandlerTests
 {
     private readonly IProductRepository _productRepository;
     private readonly IInventoryChangeRepository _inventoryChangeRepository;
     private readonly InventoryExistCommandHandler _sut;
 
-    public IssueProductExitInvoiceCommandHandlerTests()
+    public InventoryExistCommandHandlerTests()
     {
         _productRepository = Substitute.For<IProductRepository>();
         _inventoryChangeRepository = Substitute.For<IInventoryChangeRepository>();
@@ -26,7 +26,7 @@ public class IssueProductExitInvoiceCommandHandlerTests
         // Arrange
         var command = new InventoryExistCommand
         (
-            ProductExitInvoiceItems: new List<InventoryExistItem>
+            InventoryExistItems: new List<InventoryExistItem>
             {
                 new ( ProductId : 999, Quantity : 5 )
             }
@@ -47,7 +47,7 @@ public class IssueProductExitInvoiceCommandHandlerTests
         // Arrange
         var command = new InventoryExistCommand
          (
-           ProductExitInvoiceItems: new List<InventoryExistItem>
+           InventoryExistItems: new List<InventoryExistItem>
            {
              new ( ProductId : 1, Quantity : 5)
            }
