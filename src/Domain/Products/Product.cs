@@ -43,15 +43,16 @@ namespace InventoryManagement.Domain.Products
 
         }
 
-        public void IncreaseProductInstanceInventory(string serialNumber)
+        public void IncreaseProductInstanceInventory(IEnumerable<string> serialNumbers)
         {
-            var productInstance = ProductInstances.SingleOrDefault(x => x.SerialNumber == serialNumber)
-                ?? throw new BusinessException(ExceptionMessages.ProductNotFound, (int)HttpStatusCode.NotFound);
+            var selectedProductInstances = ProductInstances.Where(instance => serialNumbers.Contains(instance.SerialNumber));
 
-            productInstance.IsAvailable = true;
+            foreach (var productInstance in selectedProductInstances)
+            {
+                productInstance.IsAvailable = true;
+            }
         }
-
-
-
     }
+
 }
+

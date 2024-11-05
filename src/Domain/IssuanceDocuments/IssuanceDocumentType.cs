@@ -3,6 +3,7 @@
     public enum IssuanceDocumentType
     {
         Entry,
-        Exit
+        Exit,
+        Refund
     }
 }

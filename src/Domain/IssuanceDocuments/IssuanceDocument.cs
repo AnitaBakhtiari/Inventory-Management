@@ -29,5 +29,15 @@ namespace InventoryManagement.Domain.IssuanceDocuments
             };
         }
 
+        public static IssuanceDocument CreateRefund(IEnumerable<ProductInstance> ProductInstances)
+        {
+            return new IssuanceDocument()
+            {
+                Type = IssuanceDocumentType.Refund,
+                ProductInstances = ProductInstances,
+                CreatedOn = DateTime.Now
+            };
+        }
+
     }
 }

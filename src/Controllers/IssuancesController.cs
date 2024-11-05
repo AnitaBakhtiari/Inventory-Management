@@ -32,6 +32,15 @@ namespace InventoryManagement.Controllers
             return Ok(result);
         }
 
+        [HttpPost("refund")]
+        public async Task<IActionResult> RecordRefundIssuanceDocumentAsync(RefundIssuanceRequest request)
+        {
+            var commandRequest = new RefundIssuanceCommand(request.SerialNumber);
+            var commandResponse = await _mediator.Send(commandRequest);
+            var result = new RefundIssuanceResponse(commandResponse);
+            return Ok(result);
+        }
+
         [HttpGet("{issuanceId}")]
         public async Task<IActionResult> GetIssuanceDocumentsAsync(Guid issuanceId)
         {
