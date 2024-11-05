@@ -19,25 +19,25 @@ The Inventory Management project is designed to streamline Inventory operations 
 Goal: Set up New product registration functionality.
 
 - Features:
-  - Submit entry insurance with unique product serial.
-  - Generate insurance tracking code.
+  - Submit entry issuance with unique product serial.
+  - Generate issuance tracking code.
 - Tasks:
-  - Create database schema for insurance documents and product.
-  - Implement API endpoint for entry insurance documents.
+  - Create database schema for issuance documents and product.
+  - Implement API endpoint for entry issuance documents.
   - Write unit and integration tests.
   - Document architectural decisions (ADR).
 
 
-### Sprint 2: Exist Insurance documents for Online Sales
+### Sprint 2: Exist issuance documents for Online Sales
 
-Goal: Record Exist Insurance for  online sales transactions.
+Goal: Record Exist issuance for  online sales transactions.
 
 - Features:
-  - Submit exist insurance with unique product serial.
-  - Generate insurance tracking code.
+  - Submit exist issuance with unique product serial.
+  - Generate issuance tracking code.
 - Tasks:
-  - Create database schema for insurance documents.
-  - Implement API endpoint for entry insurance documents.
+  - Create database schema for issuance documents.
+  - Implement API endpoint for entry issuance documents.
   - Write unit and integration tests.
   - Document architectural decisions (ADR).
 
@@ -61,10 +61,10 @@ Goal: Implement inventory counting and inquiry.
 Goal: Process refunds and replacements.
 
 - Features:
-  - Create refund insurance documents for returned product.
+  - Create refund issuance documents for returned product.
   - Issue replacements for returned items.
 - Tasks:
-  - Implement API endpoint for refund insurance documents.
+  - Implement API endpoint for refund issuance documents.
   - Update inventory product instance availability for refunds and replacements.
   - Write unit and integration tests.
   - Document architectural decisions (ADR).
