@@ -1,4 +1,4 @@
-﻿using InventoryManagement.Domain.InventoryChanges;
+﻿using InventoryManagement.Domain.IssuanceDocuments;
 
 namespace InventoryManagement.Domain.Products
 {
@@ -12,7 +12,7 @@ namespace InventoryManagement.Domain.Products
         public long ProductId { get; set; }
         public Product Product { get; set; }
 
-        public ICollection<InventoryChange> InventoryChanges { get; set; } = [];
+        public ICollection<IssuanceDocument> IssuanceDocuments { get; set; } = [];
 
 
         public static ProductInstance Create(string SerialNumber)
@@ -31,9 +31,9 @@ namespace InventoryManagement.Domain.Products
 
         }
 
-        public void AddInventoryChanges(InventoryChange inventoryChange)
+        public void AddIssuanceDocuments(IssuanceDocument IssuanceDocument)
         {
-            InventoryChanges.Add(inventoryChange);
+            IssuanceDocuments.Add(IssuanceDocument);
         }
     }
 }

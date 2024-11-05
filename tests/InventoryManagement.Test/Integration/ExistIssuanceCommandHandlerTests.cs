@@ -1,24 +1,21 @@
 ﻿using InventoryManagement.Application.Commands;
 using InventoryManagement.Application.Exceptions;
-using InventoryManagement.Domain.InventoryChanges;
-using InventoryManagement.Domain.Products;
+using InventoryManagement.Domain.IssuanceDocuments;
 using InventoryManagement.Infrastructure.Persistence;
 using InventoryManagement.Test.Fixture;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using System;
 using System.Net;
 namespace InventoryManagement.Test.Integration
 {
-    public class InventoryExistCommandHandlerTests
+    public class ExistIssuanceCommandHandlerTests
     {
         private readonly InventoryManagementDbContext _dbContext;
 
 
         private readonly IMediator _mediator;
 
-        public InventoryExistCommandHandlerTests()
+        public ExistIssuanceCommandHandlerTests()
         {
             var serviceProvider = new InventoryManagementFixture()
                  .Build(Guid.NewGuid().ToString())
@@ -30,12 +27,12 @@ namespace InventoryManagement.Test.Integration
         }
 
         [Fact]
-        public async Task Handle_ShouldUnAvailableProductInstancesAndRecordInventoryChange_WhenValidExitRequest()
+        public async Task Handle_ShouldUnAvailableProductInstancesAndRecordIssuanceDocument_WhenValidExitRequest()
         {
             // Arrange
-            var exitCommand = new InventoryExistCommand
+            var exitCommand = new ExistIssuanceCommand
             (
-                InventoryExistItems: [new(ProductId: 101L, Quantity: 2)]
+                ExistIssuanceDocumentItems: [new(ProductId: 101L, Quantity: 2)]
             );
 
 
@@ -44,23 +41,23 @@ namespace InventoryManagement.Test.Integration
 
             // Assert
 
-            var inventoryChanges = await _dbContext.InventoryChanges.FindAsync(Guid.Parse(result));
+            var IssuanceDocuments = await _dbContext.IssuanceDocuments.FindAsync(Guid.Parse(result));
 
-            var ProductInstancesCount = inventoryChanges.ProductInstances.Count();
+            var ProductInstancesCount = IssuanceDocuments.ProductInstances.Count();
 
             Assert.NotNull(result);
-            Assert.NotNull(inventoryChanges);
-            Assert.True(inventoryChanges.Type == InventoryChangeType.Exit);
-            Assert.True(ProductInstancesCount == exitCommand.InventoryExistItems.Sum(x => x.Quantity));
+            Assert.NotNull(IssuanceDocuments);
+            Assert.True(IssuanceDocuments.Type == IssuanceDocumentType.Exit);
+            Assert.True(ProductInstancesCount == exitCommand.ExistIssuanceDocumentItems.Sum(x => x.Quantity));
         }
 
         [Fact]
         public async Task Handle_ShouldThrowBusinessException_WhenInsufficientInventory()
         {
             // Arrange
-            var exitCommand = new InventoryExistCommand
+            var exitCommand = new ExistIssuanceCommand
             (
-                InventoryExistItems: [new(ProductId: 101L, Quantity: 2), new(ProductId: 102L, Quantity: 1)]
+                ExistIssuanceDocumentItems: [new(ProductId: 101L, Quantity: 2), new(ProductId: 102L, Quantity: 1)]
             );
 
 

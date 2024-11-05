@@ -3,5 +3,5 @@ using MediatR;
 
 namespace InventoryManagement.Application.Queries
 {
-    public record InventoryDetailsQuery(Guid InventoryChangeId) : IRequest<InventoryDetailsResponse>;
+    public record IssuanceDocumentsQuery(Guid IssuanceDocumentId) : IRequest<IssuanceDocumentsResponse>;
 }

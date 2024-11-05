@@ -25,22 +25,7 @@ namespace InventoryManagement.Migrations
             modelBuilder.HasSequence("EntityFrameworkHiLoSequence")
                 .IncrementsBy(10);
 
-            modelBuilder.Entity("InventoryChangeProductInstance", b =>
-                {
-                    b.Property<Guid>("InventoryChangesId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<long>("ProductInstancesId")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("InventoryChangesId", "ProductInstancesId");
-
-                    b.HasIndex("ProductInstancesId");
-
-                    b.ToTable("InventoryChangeProductInstance", (string)null);
-                });
-
-            modelBuilder.Entity("InventoryManagement.Domain.InventoryChanges.InventoryChange", b =>
+            modelBuilder.Entity("InventoryManagement.Domain.InventoryChanges.IssuanceDocument", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -54,7 +39,7 @@ namespace InventoryManagement.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("InventoryChanges");
+                    b.ToTable("IssuanceDocuments");
                 });
 
             modelBuilder.Entity("InventoryManagement.Domain.Products.Product", b =>
@@ -109,19 +94,19 @@ namespace InventoryManagement.Migrations
                     b.ToTable("ProductInstances");
                 });
 
-            modelBuilder.Entity("InventoryChangeProductInstance", b =>
+            modelBuilder.Entity("IssuanceDocumentProductInstance", b =>
                 {
-                    b.HasOne("InventoryManagement.Domain.InventoryChanges.InventoryChange", null)
-                        .WithMany()
-                        .HasForeignKey("InventoryChangesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Property<Guid>("IssuanceDocumentsId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.HasOne("InventoryManagement.Domain.Products.ProductInstance", null)
-                        .WithMany()
-                        .HasForeignKey("ProductInstancesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Property<long>("ProductInstancesId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("IssuanceDocumentsId", "ProductInstancesId");
+
+                    b.HasIndex("ProductInstancesId");
+
+                    b.ToTable("IssuanceDocumentProductInstance", (string)null);
                 });
 
             modelBuilder.Entity("InventoryManagement.Domain.Products.ProductInstance", b =>
@@ -133,6 +118,21 @@ namespace InventoryManagement.Migrations
                         .IsRequired();
 
                     b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("IssuanceDocumentProductInstance", b =>
+                {
+                    b.HasOne("InventoryManagement.Domain.InventoryChanges.IssuanceDocument", null)
+                        .WithMany()
+                        .HasForeignKey("IssuanceDocumentsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("InventoryManagement.Domain.Products.ProductInstance", null)
+                        .WithMany()
+                        .HasForeignKey("ProductInstancesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("InventoryManagement.Domain.Products.Product", b =>

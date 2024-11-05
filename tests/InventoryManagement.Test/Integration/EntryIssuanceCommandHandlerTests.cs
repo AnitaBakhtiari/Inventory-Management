@@ -8,12 +8,12 @@ using InventoryManagement.Infrastructure.Persistence;
 
 namespace InventoryManagement.Test.Integration
 {
-    public class InventoryEntryCommandHandlerTests
+    public class EntryIssuanceCommandHandlerTests
     {
         private readonly InventoryManagementDbContext _dbContext;
         private readonly IMediator _mediator;
 
-        public InventoryEntryCommandHandlerTests()
+        public EntryIssuanceCommandHandlerTests()
         {
             var serviceProvider = new InventoryManagementFixture()
                 .Build(Guid.NewGuid().ToString())
@@ -24,10 +24,10 @@ namespace InventoryManagement.Test.Integration
         }
 
         [Fact]
-        public async Task Handle_ShouldAddNewProductAndProductInstances_WhenProductDoesNotExist()
+        public async Task Handle_ShouldAddNewProductAndProductInstancesAndIssuance_WhenProductDoesNotExist()
         {
             // Arrange
-            var command = new InventoryEntryCommand
+            var command = new EntryIssuanceCommand
             (
                 BrandName: "NewBrand",
                 ProductType: ProductType.Laptop,

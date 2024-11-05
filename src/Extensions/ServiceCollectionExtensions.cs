@@ -1,7 +1,7 @@
-﻿using InventoryManagement.Domain.InventoryChanges;
+﻿using InventoryManagement.Domain.IssuanceDocuments;
 using InventoryManagement.Domain.Products;
 using InventoryManagement.Infrastructure.Persistence;
-using InventoryManagement.Infrastructure.Persistence.Domain.InventoryChangeConfiguration;
+using InventoryManagement.Infrastructure.Persistence.Domain.IssuanceDocumentConfiguration;
 using InventoryManagement.Infrastructure.Persistence.Domain.ProductConfiguration;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,7 +14,7 @@ namespace InventoryManagement.Extensions
         {
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IProductRepository, ProductRepository>();
-            services.AddScoped<IInventoryChangeRepository, InventoryChangeRepository>();
+            services.AddScoped<IIssuanceDocumentRepository, IssuanceDocumentRepository>();
 
             services.AddMediatR(cf =>
             {

@@ -16,7 +16,7 @@ namespace InventoryManagement.Migrations
                 incrementBy: 10);
 
             migrationBuilder.CreateTable(
-                name: "InventoryChanges",
+                name: "IssuanceDocuments",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -25,7 +25,7 @@ namespace InventoryManagement.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_InventoryChanges", x => x.Id);
+                    table.PrimaryKey("PK_IssuanceDocuments", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -64,23 +64,23 @@ namespace InventoryManagement.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "InventoryChangeProductInstance",
+                name: "IssuanceDocumentProductInstance",
                 columns: table => new
                 {
-                    InventoryChangesId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    IssuanceDocumentsId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ProductInstancesId = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_InventoryChangeProductInstance", x => new { x.InventoryChangesId, x.ProductInstancesId });
+                    table.PrimaryKey("PK_IssuanceDocumentProductInstance", x => new { x.IssuanceDocumentsId, x.ProductInstancesId });
                     table.ForeignKey(
-                        name: "FK_InventoryChangeProductInstance_InventoryChanges_InventoryChangesId",
-                        column: x => x.InventoryChangesId,
-                        principalTable: "InventoryChanges",
+                        name: "FK_IssuanceDocumentProductInstance_IssuanceDocuments_IssuanceDocumentsId",
+                        column: x => x.IssuanceDocumentsId,
+                        principalTable: "IssuanceDocuments",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_InventoryChangeProductInstance_ProductInstances_ProductInstancesId",
+                        name: "FK_IssuanceDocumentProductInstance_ProductInstances_ProductInstancesId",
                         column: x => x.ProductInstancesId,
                         principalTable: "ProductInstances",
                         principalColumn: "Id",
@@ -88,8 +88,8 @@ namespace InventoryManagement.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_InventoryChangeProductInstance_ProductInstancesId",
-                table: "InventoryChangeProductInstance",
+                name: "IX_IssuanceDocumentProductInstance_ProductInstancesId",
+                table: "IssuanceDocumentProductInstance",
                 column: "ProductInstancesId");
 
             migrationBuilder.CreateIndex(
@@ -102,10 +102,10 @@ namespace InventoryManagement.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "InventoryChangeProductInstance");
+                name: "IssuanceDocumentProductInstance");
 
             migrationBuilder.DropTable(
-                name: "InventoryChanges");
+                name: "IssuanceDocuments");
 
             migrationBuilder.DropTable(
                 name: "ProductInstances");

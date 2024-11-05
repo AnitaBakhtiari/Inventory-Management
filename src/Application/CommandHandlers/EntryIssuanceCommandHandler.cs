@@ -1,6 +1,6 @@
 ﻿using InventoryManagement.Application.Commands;
 using InventoryManagement.Application.Exceptions;
-using InventoryManagement.Domain.InventoryChanges;
+using InventoryManagement.Domain.IssuanceDocuments;
 using InventoryManagement.Domain.Products;
 using InventoryManagement.Infrastructure.Persistence;
 using MediatR;
@@ -9,22 +9,22 @@ using System.Net;
 namespace InventoryManagement.Application.CommandHandlers
 {
 
-    public sealed class InventoryEntryCommandHandler : IRequestHandler<InventoryEntryCommand, string>
+    public sealed class EntryIssuanceCommandHandler : IRequestHandler<EntryIssuanceCommand, string>
     {
         private readonly IProductRepository _productRepository;
-        private readonly IInventoryChangeRepository _inventoryChangeRepository;
+        private readonly IIssuanceDocumentRepository _IssuanceDocumentRepository;
         private readonly IMediator _mediator;
         private readonly IUnitOfWork _unitOfWork;
 
-        public InventoryEntryCommandHandler(IProductRepository productRepository, IInventoryChangeRepository inventoryChangeRepository, IMediator mediator, IUnitOfWork unitOfWork)
+        public EntryIssuanceCommandHandler(IProductRepository productRepository, IIssuanceDocumentRepository IssuanceDocumentRepository, IMediator mediator, IUnitOfWork unitOfWork)
         {
             _productRepository = productRepository;
-            _inventoryChangeRepository = inventoryChangeRepository;
+            _IssuanceDocumentRepository = IssuanceDocumentRepository;
             _mediator = mediator;
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<string> Handle(InventoryEntryCommand request, CancellationToken cancellationToken)
+        public async Task<string> Handle(EntryIssuanceCommand request, CancellationToken cancellationToken)
         {
             ValidateCommandRequest(request);
 
@@ -40,16 +40,16 @@ namespace InventoryManagement.Application.CommandHandlers
 
             product.AddProductInstances(productInstances);
 
-            var inventoryChange = InventoryChange.CreateEntry(productInstances);
+            var issuanceDocument = IssuanceDocument.CreateEntry(productInstances);
 
-            await _inventoryChangeRepository.AddAsync(inventoryChange);
+            await _IssuanceDocumentRepository.AddAsync(issuanceDocument);
 
             await _unitOfWork.SaveChangesAsync(cancellationToken);
 
-            return inventoryChange.Id.ToString();
+            return issuanceDocument.Id.ToString();
         }
 
-        private static void ValidateCommandRequest(InventoryEntryCommand request)
+        private static void ValidateCommandRequest(EntryIssuanceCommand request)
         {
             if (string.IsNullOrWhiteSpace(request.BrandName))
                 throw new BusinessException(ExceptionMessages.BrandNameIsRequired, (int)HttpStatusCode.BadRequest);
