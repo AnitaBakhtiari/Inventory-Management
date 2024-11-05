@@ -9,18 +9,10 @@ using System.Net;
 namespace InventoryManagement.Application.CommandHandlers
 {
 
-    public sealed class ExistIssuanceCommandHandler : IRequestHandler<ExistIssuanceCommand, string>
+    public sealed class ExistIssuanceCommandHandler(IInventoryManagementUnitOfWork unitOfWork) : IRequestHandler<ExistIssuanceCommand, string>
     {
-        private readonly IProductRepository _productRepository;
-        private readonly IIssuanceDocumentRepository _IssuanceDocumentRepository;
-        private readonly IUnitOfWork _unitOfWork;
 
-        public ExistIssuanceCommandHandler(IProductRepository productRepository, IIssuanceDocumentRepository IssuanceDocumentRepository,IUnitOfWork unitOfWork)
-        {
-            _productRepository = productRepository;
-            _IssuanceDocumentRepository = IssuanceDocumentRepository;
-            _unitOfWork = unitOfWork;
-        }
+        private readonly IInventoryManagementUnitOfWork _unitOfWork = unitOfWork;
 
         public async Task<string> Handle(ExistIssuanceCommand request, CancellationToken cancellationToken)
         {
@@ -30,7 +22,7 @@ namespace InventoryManagement.Application.CommandHandlers
 
             foreach (var IssuanceDocumentItem in request.ExistIssuanceDocumentItems)
             {
-                var product = await _productRepository.GetByIdAsync(IssuanceDocumentItem.ProductId) ?? throw new BusinessException(ExceptionMessages.ProductNotFound, (int)HttpStatusCode.NotFound);
+                var product = await _unitOfWork.ProductRepository.GetByIdAsync(IssuanceDocumentItem.ProductId) ?? throw new BusinessException(ExceptionMessages.ProductNotFound, (int)HttpStatusCode.NotFound);
 
                 if (!product.HasInventory(IssuanceDocumentItem.Quantity))
                 {
@@ -42,7 +34,7 @@ namespace InventoryManagement.Application.CommandHandlers
             }
 
             var issuanceDocument = IssuanceDocument.CreateExit(productInstances);
-            await _IssuanceDocumentRepository.AddAsync(issuanceDocument);
+            await _unitOfWork.IssuanceDocumentRepository.AddAsync(issuanceDocument);
 
             await _unitOfWork.SaveChangesAsync(cancellationToken);
 
