@@ -1,7 +1,7 @@
 ﻿using InventoryManagement.Domain.InventoryChanges;
 using InventoryManagement.Domain.Products;
 using InventoryManagement.Infrastructure.Persistence;
-using InventoryManagement.Infrastructure.Persistence.Domain.InventoryChangeConfiguration;
+using InventoryManagement.Infrastructure.Persistence.Domain.IssuanceDocumentConfiguration;
 using InventoryManagement.Infrastructure.Persistence.Domain.ProductConfiguration;
 using Microsoft.EntityFrameworkCore;
 

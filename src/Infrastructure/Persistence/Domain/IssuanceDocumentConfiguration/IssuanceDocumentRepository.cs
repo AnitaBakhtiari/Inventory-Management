@@ -1,7 +1,7 @@
 ﻿using InventoryManagement.Domain.InventoryChanges;
 using Microsoft.EntityFrameworkCore;
 
-namespace InventoryManagement.Infrastructure.Persistence.Domain.InventoryChangeConfiguration
+namespace InventoryManagement.Infrastructure.Persistence.Domain.IssuanceDocumentConfiguration
 {
     public class IssuanceDocumentRepository : IIssuanceDocumentRepository
     {
