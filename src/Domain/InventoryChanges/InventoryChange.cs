@@ -9,11 +9,21 @@ namespace InventoryManagement.Domain.InventoryChanges
         public DateTime CreatedOn { get; set; }
         public IEnumerable<ProductInstance> ProductInstances { get; set; } 
 
-        public static InventoryChange Create(InventoryChangeType Type, IEnumerable<ProductInstance> ProductInstances)
+        public static InventoryChange CreateEntry(IEnumerable<ProductInstance> ProductInstances)
         {
             return new InventoryChange()
             {
-                Type = Type,
+                Type = InventoryChangeType.Entry,
+                ProductInstances = ProductInstances,
+                CreatedOn = DateTime.Now
+            };
+        }
+
+        public static InventoryChange CreateExit(IEnumerable<ProductInstance> ProductInstances)
+        {
+            return new InventoryChange()
+            {
+                Type = InventoryChangeType.Exit,
                 ProductInstances = ProductInstances,
                 CreatedOn = DateTime.Now
             };

@@ -35,7 +35,7 @@ namespace InventoryManagement.Test.Integration
             // Arrange
             var exitCommand = new InventoryExistCommand
             (
-                ProductExitInvoiceItems: [new(ProductId: 101L, Quantity: 2)]
+                InventoryExistItems: [new(ProductId: 101L, Quantity: 2)]
             );
 
 
@@ -51,7 +51,7 @@ namespace InventoryManagement.Test.Integration
             Assert.NotNull(result);
             Assert.NotNull(inventoryChanges);
             Assert.True(inventoryChanges.Type == InventoryChangeType.Exit);
-            Assert.True(ProductInstancesCount == exitCommand.ProductExitInvoiceItems.Sum(x => x.Quantity));
+            Assert.True(ProductInstancesCount == exitCommand.InventoryExistItems.Sum(x => x.Quantity));
         }
 
         [Fact]
@@ -60,7 +60,7 @@ namespace InventoryManagement.Test.Integration
             // Arrange
             var exitCommand = new InventoryExistCommand
             (
-                ProductExitInvoiceItems: [new(ProductId: 101L, Quantity: 2), new(ProductId: 102L, Quantity: 1)]
+                InventoryExistItems: [new(ProductId: 101L, Quantity: 2), new(ProductId: 102L, Quantity: 1)]
             );
 
 
