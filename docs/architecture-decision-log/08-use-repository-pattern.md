@@ -1,4 +1,4 @@
-# 7. Use Repository Pattern
+# 8. Use Repository Pattern
 
 Date: 2024-11-04
 

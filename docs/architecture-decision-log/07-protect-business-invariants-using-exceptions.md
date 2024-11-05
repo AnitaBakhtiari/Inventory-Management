@@ -1,4 +1,4 @@
-# 6. Protect Business Rules Using Exceptions
+# 7. Protect Business Rules Using Exceptions
 
 Date: 2024-11-04
 
