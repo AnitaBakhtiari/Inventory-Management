@@ -12,12 +12,11 @@ I want to create a project that is easy to work with. Using a simple monolithic 
 
 ## Decision
 
-I decided to build a monolithic application with four main layers:
+I decided to build a monolithic application with Three main layers(folder):
 
 - Domain Layer: This part will deal with the main business rules and logic.
 - Application Layer: This part will handle the application logic and use DDD patterns like commands and queries to do things.
 - Infrastructure Layer: This part will take care of how we store data and connect to other services, using repositories for data.
-- API Layer: This part will let users interact with the application.
 
 I will keep each layer in its own folder to stay organized.
 
