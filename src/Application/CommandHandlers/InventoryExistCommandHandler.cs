@@ -2,6 +2,7 @@
 using InventoryManagement.Application.Exceptions;
 using InventoryManagement.Domain.InventoryChanges;
 using InventoryManagement.Domain.Products;
+using InventoryManagement.Infrastructure.Persistence;
 using MediatR;
 using System.Net;
 
@@ -12,11 +13,13 @@ namespace InventoryManagement.Application.CommandHandlers
     {
         private readonly IProductRepository _productRepository;
         private readonly IInventoryChangeRepository _inventoryChangeRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public InventoryExistCommandHandler(IProductRepository productRepository, IInventoryChangeRepository inventoryChangeRepository)
+        public InventoryExistCommandHandler(IProductRepository productRepository, IInventoryChangeRepository inventoryChangeRepository,IUnitOfWork unitOfWork)
         {
             _productRepository = productRepository;
             _inventoryChangeRepository = inventoryChangeRepository;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<string> Handle(InventoryExistCommand request, CancellationToken cancellationToken)
@@ -40,6 +43,8 @@ namespace InventoryManagement.Application.CommandHandlers
 
             var inventoryChange = InventoryChange.CreateExit(productInstances);
             await _inventoryChangeRepository.AddAsync(inventoryChange);
+
+            await _unitOfWork.SaveChangesAsync(cancellationToken);
 
             return inventoryChange.Id.ToString();
 

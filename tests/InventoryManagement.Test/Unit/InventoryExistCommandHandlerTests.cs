@@ -4,20 +4,24 @@ using InventoryManagement.Application.Commands;
 using InventoryManagement.Application.Exceptions;
 using InventoryManagement.Domain.InventoryChanges;
 using InventoryManagement.Domain.Products;
+using InventoryManagement.Infrastructure.Persistence;
 using NSubstitute;
 
 public class InventoryExistCommandHandlerTests
 {
     private readonly IProductRepository _productRepository;
     private readonly IInventoryChangeRepository _inventoryChangeRepository;
+    private readonly IUnitOfWork _unitOfWork;
+
     private readonly InventoryExistCommandHandler _sut;
 
     public InventoryExistCommandHandlerTests()
     {
         _productRepository = Substitute.For<IProductRepository>();
         _inventoryChangeRepository = Substitute.For<IInventoryChangeRepository>();
+        _unitOfWork = Substitute.For<IUnitOfWork>();
 
-        _sut = new InventoryExistCommandHandler(_productRepository, _inventoryChangeRepository);
+        _sut = new InventoryExistCommandHandler(_productRepository, _inventoryChangeRepository, _unitOfWork);
     }
 
     [Fact]

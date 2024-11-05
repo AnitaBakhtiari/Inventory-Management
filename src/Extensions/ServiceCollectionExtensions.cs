@@ -1,6 +1,5 @@
 ﻿using InventoryManagement.Domain.InventoryChanges;
 using InventoryManagement.Domain.Products;
-using InventoryManagement.Infrastructure.Behavior;
 using InventoryManagement.Infrastructure.Persistence;
 using InventoryManagement.Infrastructure.Persistence.Domain.InventoryChangeConfiguration;
 using InventoryManagement.Infrastructure.Persistence.Domain.ProductConfiguration;
@@ -20,7 +19,6 @@ namespace InventoryManagement.Extensions
             services.AddMediatR(cf =>
             {
                 cf.RegisterServicesFromAssembly(typeof(Program).Assembly);
-                cf.AddOpenBehavior(typeof(UnitOfWorkBehavior<,>));
             });
 
             return services;
