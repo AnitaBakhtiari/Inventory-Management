@@ -1,7 +1,9 @@
 ﻿using InventoryManagement.Application.Commands;
+using InventoryManagement.Application.Exceptions;
 using InventoryManagement.Domain.InventoryChanges;
 using InventoryManagement.Domain.Products;
 using MediatR;
+using System.Net;
 
 namespace InventoryManagement.Application.CommandHandlers
 {
@@ -21,6 +23,7 @@ namespace InventoryManagement.Application.CommandHandlers
 
         public async Task<string> Handle(InventoryEntryCommand request, CancellationToken cancellationToken)
         {
+            ValidateCommandRequest(request);
 
             var product = await _productRepository.GetByBrandNameAndProductTypeAsync(request.BrandName, request.ProductType);
 
@@ -39,6 +42,15 @@ namespace InventoryManagement.Application.CommandHandlers
             await _inventoryChangeRepository.AddAsync(inventoryChange);
 
             return inventoryChange.Id.ToString();
+        }
+
+        private static void ValidateCommandRequest(InventoryEntryCommand request)
+        {
+            if (string.IsNullOrWhiteSpace(request.BrandName))
+                throw new BusinessException(ExceptionMessages.BrandNameIsRequired, (int)HttpStatusCode.BadRequest);
+
+            if (request.SerialNumbers == null || !request.SerialNumbers.Any())
+                throw new BusinessException(ExceptionMessages.SerialNumbersIsRequired, (int)HttpStatusCode.BadRequest);
         }
     }
 }
