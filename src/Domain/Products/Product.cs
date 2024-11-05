@@ -29,10 +29,6 @@ namespace InventoryManagement.Domain.Products
 
         public virtual List<ProductInstance> ReduceProductInstancesInventory(int quantity)
         {
-            if (quantity <= 0)
-            {
-                throw new BusinessException(ExceptionMessages.QuantityGreaterThanZero, (int)HttpStatusCode.PreconditionFailed);
-            }
 
             if (!HasInventory(quantity))
             {

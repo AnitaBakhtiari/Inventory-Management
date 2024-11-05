@@ -19,20 +19,22 @@ namespace InventoryManagement.Application.CommandHandlers
             _inventoryChangeRepository = inventoryChangeRepository;
         }
 
-        public async Task<string> Handle(InventoryExistCommand requests, CancellationToken cancellationToken)
+        public async Task<string> Handle(InventoryExistCommand request, CancellationToken cancellationToken)
         {
+            ValidateCommandRequest(request);
+
             List<ProductInstance> productInstances = new();
 
-            foreach (var request in requests.InventoryExistItems)
+            foreach (var inventoryItem in request.InventoryExistItems)
             {
-                var product = await _productRepository.GetByIdAsync(request.ProductId) ?? throw new BusinessException(ExceptionMessages.ProductNotFound, (int)HttpStatusCode.NotFound);
+                var product = await _productRepository.GetByIdAsync(inventoryItem.ProductId) ?? throw new BusinessException(ExceptionMessages.ProductNotFound, (int)HttpStatusCode.NotFound);
 
-                if (!product.HasInventory(request.Quantity))
+                if (!product.HasInventory(inventoryItem.Quantity))
                 {
                     throw new BusinessException(ExceptionMessages.OutOfInventory, (int)HttpStatusCode.PreconditionFailed);
                 }
 
-                var effectedProductInstances = product.ReduceProductInstancesInventory(request.Quantity);
+                var effectedProductInstances = product.ReduceProductInstancesInventory(inventoryItem.Quantity);
                 productInstances.AddRange(effectedProductInstances);
             }
 
@@ -41,6 +43,20 @@ namespace InventoryManagement.Application.CommandHandlers
 
             return inventoryChange.Id.ToString();
 
+        }
+
+        private static void ValidateCommandRequest(InventoryExistCommand request)
+        {
+            if (request.InventoryExistItems == null || !request.InventoryExistItems.Any())
+                throw new BusinessException(ExceptionMessages.InventoryExistItemsIsRequired, (int)HttpStatusCode.BadRequest);
+
+            foreach (var item in request.InventoryExistItems)
+            {
+                if (item.Quantity <= 0)
+                {
+                    throw new BusinessException(ExceptionMessages.QuantityGreaterThanZero, (int)HttpStatusCode.PreconditionFailed);
+                }
+            }
         }
     }
 }
