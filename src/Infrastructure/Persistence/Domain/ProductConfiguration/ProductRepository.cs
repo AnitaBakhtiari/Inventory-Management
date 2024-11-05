@@ -25,5 +25,20 @@ namespace InventoryManagement.Infrastructure.Persistence.Domain.ProductConfigura
                                    .Include(x => x.ProductInstances)
                                    .FirstOrDefaultAsync(x => x.Id == productId);
         }
+
+        public async Task<(Product?, ProductInstance)> GetBySerialNumberAsync(string serialNumber)
+        {
+            var result = await _dbContext.ProductInstances
+                                  .Where(pi => pi.SerialNumber == serialNumber)
+                                  .Select(pi => new
+                                  {
+                                      Product = pi.Product,
+                                      ProductInstance = pi
+                                  })
+                                  .SingleOrDefaultAsync();
+
+            return (result?.Product, result.ProductInstance);
+        }
+
     }
 }

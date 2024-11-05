@@ -15,7 +15,6 @@ namespace InventoryManagement.Extensions
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IInventoryManagementUnitOfWork, InventoryManagementUnitOfWork>();
             services.AddScoped<IProductRepository, ProductRepository>();
-            services.AddScoped<IProductInstanceRepository, ProductInstanceRepository>();
             services.AddScoped<IIssuanceDocumentRepository, IssuanceDocumentRepository>();
 
             services.AddMediatR(cf =>

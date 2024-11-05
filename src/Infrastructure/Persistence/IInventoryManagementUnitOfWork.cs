@@ -6,7 +6,6 @@ namespace InventoryManagement.Infrastructure.Persistence
     public interface IInventoryManagementUnitOfWork: IUnitOfWork
     {
         public IProductRepository ProductRepository { get; }
-        public IProductInstanceRepository ProductInstanceRepository { get; }
         public IIssuanceDocumentRepository IssuanceDocumentRepository { get; }
     }
 
@@ -14,16 +13,13 @@ namespace InventoryManagement.Infrastructure.Persistence
     public class InventoryManagementUnitOfWork : UnitOfWork, IInventoryManagementUnitOfWork
     {
         public IProductRepository ProductRepository { get; }
-        public IProductInstanceRepository ProductInstanceRepository { get; }
         public IIssuanceDocumentRepository IssuanceDocumentRepository { get; }
 
         public InventoryManagementUnitOfWork(InventoryManagementDbContext dbContext,
             IProductRepository productRepository,
-            IProductInstanceRepository productInstanceRepository,
             IIssuanceDocumentRepository issuanceDocumentRepository) : base(dbContext)
         {
             ProductRepository = productRepository;
-            ProductInstanceRepository = productInstanceRepository;
             IssuanceDocumentRepository = issuanceDocumentRepository;
         }
 
