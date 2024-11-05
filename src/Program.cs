@@ -1,10 +1,5 @@
-using InventoryManagement.Application.Commands;
-using InventoryManagement.Application.Queries;
 using InventoryManagement.Extensions;
 using InventoryManagement.Middleware;
-using InventoryManagement.Models;
-using MediatR;
-
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -20,13 +15,11 @@ builder.Services.AddDependencyInjections();
 
 var app = builder.Build();
 
+app.UseMiddleware<ErrorHandlerMiddleware>();
+
 app.UseSwagger();
 app.UseSwaggerUI();
 app.UseHttpsRedirection();
-
-app.UseMiddleware<ErrorHandlerMiddleware>();
-
-app.UseAuthorization();
 
 app.MapControllers();
 
