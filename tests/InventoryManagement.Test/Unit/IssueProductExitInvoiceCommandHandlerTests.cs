@@ -10,23 +10,23 @@ public class IssueProductExitInvoiceCommandHandlerTests
 {
     private readonly IProductRepository _productRepository;
     private readonly IInventoryChangeRepository _inventoryChangeRepository;
-    private readonly IssueProductExitInvoiceCommandHandler _sut;
+    private readonly InventoryExistCommandHandler _sut;
 
     public IssueProductExitInvoiceCommandHandlerTests()
     {
         _productRepository = Substitute.For<IProductRepository>();
         _inventoryChangeRepository = Substitute.For<IInventoryChangeRepository>();
 
-        _sut = new IssueProductExitInvoiceCommandHandler(_productRepository, _inventoryChangeRepository);
+        _sut = new InventoryExistCommandHandler(_productRepository, _inventoryChangeRepository);
     }
 
     [Fact]
     public async Task Handle_ShouldThrowBusinessException_WhenProductNotFound()
     {
         // Arrange
-        var command = new ProductExitInvoiceCommand
+        var command = new InventoryExistCommand
         (
-            ProductExitInvoiceItems: new List<ProductExitInvoiceItem>
+            ProductExitInvoiceItems: new List<InventoryExistItem>
             {
                 new ( ProductId : 999, Quantity : 5 )
             }
@@ -45,9 +45,9 @@ public class IssueProductExitInvoiceCommandHandlerTests
     public async Task Handle_ShouldThrowBusinessException_WhenInsufficientInventory()
     {
         // Arrange
-        var command = new ProductExitInvoiceCommand
+        var command = new InventoryExistCommand
          (
-           ProductExitInvoiceItems: new List<ProductExitInvoiceItem>
+           ProductExitInvoiceItems: new List<InventoryExistItem>
            {
              new ( ProductId : 1, Quantity : 5)
            }

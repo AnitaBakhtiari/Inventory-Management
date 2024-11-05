@@ -6,18 +6,18 @@ using MediatR;
 namespace InventoryManagement.Application.CommandHandlers
 {
 
-    public sealed class IssueProductEntryInvoiceCommandHandler : IRequestHandler<ProductEntryInvoiceCommand, string>
+    public sealed class InventoryEntryCommandHandler : IRequestHandler<InventoryEntryCommand, string>
     {
         private readonly IProductRepository _productRepository;
         private readonly IInventoryChangeRepository _inventoryChangeRepository;
 
-        public IssueProductEntryInvoiceCommandHandler(IProductRepository productRepository, IInventoryChangeRepository inventoryChangeRepository)
+        public InventoryEntryCommandHandler(IProductRepository productRepository, IInventoryChangeRepository inventoryChangeRepository)
         {
             _productRepository = productRepository;
             _inventoryChangeRepository = inventoryChangeRepository;
         }
 
-        public async Task<string> Handle(ProductEntryInvoiceCommand request, CancellationToken cancellationToken)
+        public async Task<string> Handle(InventoryEntryCommand request, CancellationToken cancellationToken)
         {
 
             var product = await _productRepository.GetByBrandNameAndProductTypeAsync(request.BrandName, request.ProductType);
@@ -31,7 +31,7 @@ namespace InventoryManagement.Application.CommandHandlers
             var productInstances = ProductInstance.Create(request.SerialNumbers);
             product.AddProductInstances(productInstances);
 
-            var inventoryChange = InventoryChange.Create(InventoryChangeType.In, productInstances);
+            var inventoryChange = InventoryChange.Create(InventoryChangeType.Entry, productInstances);
 
             await _inventoryChangeRepository.AddAsync(inventoryChange);
 

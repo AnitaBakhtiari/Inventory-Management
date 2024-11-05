@@ -8,18 +8,18 @@ using System.Net;
 namespace InventoryManagement.Application.CommandHandlers
 {
 
-    public sealed class IssueProductExitInvoiceCommandHandler : IRequestHandler<ProductExitInvoiceCommand, string>
+    public sealed class InventoryExistCommandHandler : IRequestHandler<InventoryExistCommand, string>
     {
         private readonly IProductRepository _productRepository;
         private readonly IInventoryChangeRepository _inventoryChangeRepository;
 
-        public IssueProductExitInvoiceCommandHandler(IProductRepository productRepository, IInventoryChangeRepository inventoryChangeRepository)
+        public InventoryExistCommandHandler(IProductRepository productRepository, IInventoryChangeRepository inventoryChangeRepository)
         {
             _productRepository = productRepository;
             _inventoryChangeRepository = inventoryChangeRepository;
         }
 
-        public async Task<string> Handle(ProductExitInvoiceCommand requests, CancellationToken cancellationToken)
+        public async Task<string> Handle(InventoryExistCommand requests, CancellationToken cancellationToken)
         {
             List<ProductInstance> productInstances = new();
 
@@ -36,7 +36,7 @@ namespace InventoryManagement.Application.CommandHandlers
                 productInstances.AddRange(effectedProductInstances);
             }
 
-            var inventoryChange = InventoryChange.Create(InventoryChangeType.Out, productInstances);
+            var inventoryChange = InventoryChange.Create(InventoryChangeType.Exit, productInstances);
             await _inventoryChangeRepository.AddAsync(inventoryChange);
 
             return inventoryChange.Id.ToString();

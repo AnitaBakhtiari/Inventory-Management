@@ -2,7 +2,7 @@
 {
     public enum InventoryChangeType
     {
-        In,
-        Out
+        Entry,
+        Exit
     }
 }

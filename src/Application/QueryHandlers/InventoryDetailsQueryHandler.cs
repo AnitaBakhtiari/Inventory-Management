@@ -8,7 +8,7 @@ using InventoryManagement.Models;
 
 namespace InventoryManagement.Application.QueryHandlers
 {
-    public sealed class GetProductInvoiceQueryHandler : IRequestHandler<ProductInvoiceQuery, ProductInvoiceDetailsResponse>
+    public sealed class GetProductInvoiceQueryHandler : IRequestHandler<InventoryDetailsQuery, InventoryDetailsResponse>
     {
         private readonly IProductRepository _productRepository;
         private readonly IInventoryChangeRepository _inventoryChangeRepository;
@@ -20,14 +20,14 @@ namespace InventoryManagement.Application.QueryHandlers
         }
 
 
-        public async Task<ProductInvoiceDetailsResponse> Handle(ProductInvoiceQuery request, CancellationToken cancellationToken)
+        public async Task<InventoryDetailsResponse> Handle(InventoryDetailsQuery request, CancellationToken cancellationToken)
         {
             var inventoryChange = await _inventoryChangeRepository.GetByIdAsync(request.InventoryChangeId) ??
                 throw new BusinessException(ExceptionMessages.InventoryChangeNotFound, (int)HttpStatusCode.NotFound);
 
             var productInvoiceItems = inventoryChange.ProductInstances
                 .GroupBy(x => x.ProductId)
-                .Select(group => new ProductInvoiceItem
+                .Select(group => new InventoryDetailsItem
                   (
                       ProductId: group.Key,
                       Quantity: group.Count(),
@@ -35,7 +35,7 @@ namespace InventoryManagement.Application.QueryHandlers
 
                   )).ToArray();
 
-            return new ProductInvoiceDetailsResponse(InventoryChangeId: request.InventoryChangeId, ProductInvoiceItems: productInvoiceItems);
+            return new InventoryDetailsResponse(InventoryChangeId: request.InventoryChangeId, Items: productInvoiceItems);
         }
     }
 }
