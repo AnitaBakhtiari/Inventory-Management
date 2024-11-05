@@ -10,11 +10,13 @@ namespace InventoryManagement.Application.CommandHandlers
     {
         private readonly IProductRepository _productRepository;
         private readonly IInventoryChangeRepository _inventoryChangeRepository;
+        private readonly IMediator _mediator;
 
-        public InventoryEntryCommandHandler(IProductRepository productRepository, IInventoryChangeRepository inventoryChangeRepository)
+        public InventoryEntryCommandHandler(IProductRepository productRepository, IInventoryChangeRepository inventoryChangeRepository, IMediator mediator)
         {
             _productRepository = productRepository;
             _inventoryChangeRepository = inventoryChangeRepository;
+            _mediator = mediator;
         }
 
         public async Task<string> Handle(InventoryEntryCommand request, CancellationToken cancellationToken)
@@ -24,14 +26,15 @@ namespace InventoryManagement.Application.CommandHandlers
 
             if (product == null)
             {
-                product = Product.Create(request.BrandName, request.ProductType);
-                await _productRepository.AddAsync(product);
+                var creationProductId = await _mediator.Send(new CreationProductCommand(request.BrandName, request.ProductType, request.SerialNumbers), cancellationToken);
+                product = await _productRepository.GetByIdAsync((long)creationProductId);
             }
 
             var productInstances = ProductInstance.Create(request.SerialNumbers);
+
             product.AddProductInstances(productInstances);
 
-            var inventoryChange = InventoryChange.Create(InventoryChangeType.Entry, productInstances);
+            var inventoryChange = InventoryChange.CreateEntry(productInstances);
 
             await _inventoryChangeRepository.AddAsync(inventoryChange);
 
