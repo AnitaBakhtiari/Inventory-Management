@@ -11,14 +11,14 @@ using System;
 using System.Net;
 namespace InventoryManagement.Test.Integration
 {
-    public class IssueProductExitInvoiceCommandHandlerTests
+    public class InventoryExistCommandHandlerTests
     {
         private readonly InventoryManagementDbContext _dbContext;
 
 
         private readonly IMediator _mediator;
 
-        public IssueProductExitInvoiceCommandHandlerTests()
+        public InventoryExistCommandHandlerTests()
         {
             var serviceProvider = new InventoryManagementFixture()
                  .Build(Guid.NewGuid().ToString())
@@ -33,7 +33,7 @@ namespace InventoryManagement.Test.Integration
         public async Task Handle_ShouldUnAvailableProductInstancesAndRecordInventoryChange_WhenValidExitRequest()
         {
             // Arrange
-            var exitCommand = new ProductExitInvoiceCommand
+            var exitCommand = new InventoryExistCommand
             (
                 ProductExitInvoiceItems: [new(ProductId: 101L, Quantity: 2)]
             );
@@ -50,7 +50,7 @@ namespace InventoryManagement.Test.Integration
 
             Assert.NotNull(result);
             Assert.NotNull(inventoryChanges);
-            Assert.True(inventoryChanges.Type == InventoryChangeType.Out);
+            Assert.True(inventoryChanges.Type == InventoryChangeType.Exit);
             Assert.True(ProductInstancesCount == exitCommand.ProductExitInvoiceItems.Sum(x => x.Quantity));
         }
 
@@ -58,7 +58,7 @@ namespace InventoryManagement.Test.Integration
         public async Task Handle_ShouldThrowBusinessException_WhenInsufficientInventory()
         {
             // Arrange
-            var exitCommand = new ProductExitInvoiceCommand
+            var exitCommand = new InventoryExistCommand
             (
                 ProductExitInvoiceItems: [new(ProductId: 101L, Quantity: 2), new(ProductId: 102L, Quantity: 1)]
             );

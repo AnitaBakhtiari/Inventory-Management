@@ -110,7 +110,7 @@ namespace InventoryManagement.Test.Fixture
             var inventoryChangeIn = new InventoryChange
             {
                 Id = Guid.NewGuid(),
-                Type = InventoryChangeType.In,
+                Type = InventoryChangeType.Entry,
                 CreatedOn = DateTime.Now,
                 ProductInstances = productInstances.ToList()
             };
@@ -118,7 +118,7 @@ namespace InventoryManagement.Test.Fixture
             var inventoryChangeOut = new InventoryChange
             {
                 Id = Guid.NewGuid(),
-                Type = InventoryChangeType.Out,
+                Type = InventoryChangeType.Exit,
                 CreatedOn = DateTime.Now,
                 ProductInstances = new List<ProductInstance> { productInstances[2] }
             };

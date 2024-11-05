@@ -1,12 +1,12 @@
 ﻿namespace InventoryManagement.Models
 {
-    public record ProductInvoiceDetailsResponse
+    public record InventoryDetailsResponse
     (
         Guid InventoryChangeId,
-        ProductInvoiceItem[] ProductInvoiceItems
+        InventoryDetailsItem[] Items
     );
 
-    public record ProductInvoiceItem
+    public record InventoryDetailsItem
     (
         long ProductId,
         int Quantity,
