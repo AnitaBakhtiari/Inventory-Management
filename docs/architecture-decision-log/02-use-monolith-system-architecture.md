@@ -1,4 +1,4 @@
-# 3.  Use Simple Monolithic Architecture
+# 2.  Use Simple Monolithic Architecture
 
 Date: 2024-11-03
 
