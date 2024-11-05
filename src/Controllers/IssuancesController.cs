@@ -32,10 +32,10 @@ namespace InventoryManagement.Controllers
             return Ok(result);
         }
 
-        [HttpGet("{inventoryId}")]
-        public async Task<IActionResult> GetProductInventoryAsync(Guid inventoryId)
+        [HttpGet("{issuanceId}")]
+        public async Task<IActionResult> GetIssuanceDocumentsAsync(Guid issuanceId)
         {
-            var queryRequest = new IssuanceDocumentsQuery(inventoryId);
+            var queryRequest = new IssuanceDocumentsQuery(issuanceId);
             var result = await _mediator.Send(queryRequest);
             return Ok(result);
         }
