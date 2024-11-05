@@ -2,26 +2,22 @@ using System.Net;
 using InventoryManagement.Application.CommandHandlers;
 using InventoryManagement.Application.Commands;
 using InventoryManagement.Application.Exceptions;
-using InventoryManagement.Domain.IssuanceDocuments;
 using InventoryManagement.Domain.Products;
 using InventoryManagement.Infrastructure.Persistence;
 using NSubstitute;
 
 public class ExistIssuanceCommandHandlerTests
 {
-    private readonly IProductRepository _productRepository;
-    private readonly IIssuanceDocumentRepository _IssuanceDocumentRepository;
-    private readonly IUnitOfWork _unitOfWork;
+
+    private readonly IInventoryManagementUnitOfWork _unitOfWork;
 
     private readonly ExistIssuanceCommandHandler _sut;
 
     public ExistIssuanceCommandHandlerTests()
     {
-        _productRepository = Substitute.For<IProductRepository>();
-        _IssuanceDocumentRepository = Substitute.For<IIssuanceDocumentRepository>();
-        _unitOfWork = Substitute.For<IUnitOfWork>();
+        _unitOfWork = Substitute.For<IInventoryManagementUnitOfWork>();
 
-        _sut = new ExistIssuanceCommandHandler(_productRepository, _IssuanceDocumentRepository, _unitOfWork);
+        _sut = new ExistIssuanceCommandHandler(_unitOfWork);
     }
 
     [Fact]
@@ -36,7 +32,7 @@ public class ExistIssuanceCommandHandlerTests
             }
         );
 
-        _productRepository.GetByIdAsync(999).Returns((Product)null);
+        _unitOfWork.ProductRepository.GetByIdAsync(999).Returns((Product)null);
 
         // Act & Assert
         var exception = await Assert.ThrowsAsync<BusinessException>(() => _sut.Handle(command, CancellationToken.None));
@@ -61,7 +57,7 @@ public class ExistIssuanceCommandHandlerTests
         var product = Substitute.For<Product>();
         product.HasInventory(5).Returns(false);
 
-        _productRepository.GetByIdAsync(1).Returns(product);
+        _unitOfWork.ProductRepository.GetByIdAsync(1).Returns(product);
 
         // Act & Assert
         var exception = await Assert.ThrowsAsync<BusinessException>(() => _sut.Handle(command, CancellationToken.None));

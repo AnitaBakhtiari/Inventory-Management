@@ -5,21 +5,15 @@ using MediatR;
 
 namespace InventoryManagement.Application.CommandHandlers
 {
-    public sealed class CreationProductCommandHandler : IRequestHandler<CreationProductCommand, long>
+    public sealed class CreationProductCommandHandler(IInventoryManagementUnitOfWork unitOfWork) : IRequestHandler<CreationProductCommand, long>
     {
-        private readonly IProductRepository _productRepository;
-        private readonly IUnitOfWork _unitOfWork;
 
-        public CreationProductCommandHandler(IProductRepository productRepository, IUnitOfWork unitOfWork)
-        {
-            _productRepository = productRepository;
-            _unitOfWork = unitOfWork;
-        }
+        private readonly IInventoryManagementUnitOfWork _unitOfWork = unitOfWork;
 
         public async Task<long> Handle(CreationProductCommand request, CancellationToken cancellationToken)
         {
             var product = Product.Create(request.BrandName, request.ProductType);
-            await _productRepository.AddAsync(product);
+            await _unitOfWork.ProductRepository.AddAsync(product);
 
             await _unitOfWork.SaveChangesAsync(cancellationToken);
 

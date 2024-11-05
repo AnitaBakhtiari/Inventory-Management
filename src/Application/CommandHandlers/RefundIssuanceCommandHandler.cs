@@ -1,35 +1,22 @@
 ﻿using InventoryManagement.Application.Commands;
 using InventoryManagement.Application.Exceptions;
 using InventoryManagement.Domain.IssuanceDocuments;
-using InventoryManagement.Domain.Products;
 using InventoryManagement.Infrastructure.Persistence;
 using MediatR;
 using System.Net;
 
 namespace InventoryManagement.Application.CommandHandlers
 {
-    public class RefundIssuanceCommandHandler : IRequestHandler<RefundIssuanceCommand, string>
+    public class RefundIssuanceCommandHandler(IInventoryManagementUnitOfWork unitOfWork) : IRequestHandler<RefundIssuanceCommand, string>
     {
-        private readonly IIssuanceDocumentRepository _IssuanceDocumentRepository;
-        private readonly IProductInstanceRepository _productInstanceRepository;
-        private readonly IUnitOfWork _unitOfWork;
 
-        public RefundIssuanceCommandHandler(
-            IIssuanceDocumentRepository IssuanceDocumentRepository,
-            IUnitOfWork unitOfWork,
-            IProductInstanceRepository productInstanceRepository)
-        {
-
-            _IssuanceDocumentRepository = IssuanceDocumentRepository;
-            _unitOfWork = unitOfWork;
-            _productInstanceRepository = productInstanceRepository;
-        }
+        private readonly IInventoryManagementUnitOfWork _unitOfWork = unitOfWork;
 
         public async Task<string> Handle(RefundIssuanceCommand request, CancellationToken cancellationToken)
         {
             ValidateCommandRequest(request);
 
-            var productInstance = await _productInstanceRepository.GetBySerialNumberAsync(request.SerialNumber)
+            var productInstance = await _unitOfWork.ProductInstanceRepository.GetBySerialNumberAsync(request.SerialNumber)
                    ?? throw new BusinessException(ExceptionMessages.ProductSerialNumberNotFound, (int)HttpStatusCode.NotFound);
 
             if (productInstance.IsAvailable)
@@ -43,7 +30,7 @@ namespace InventoryManagement.Application.CommandHandlers
 
             var issuanceDocument = IssuanceDocument.CreateRefund([productInstance]);
 
-            await _IssuanceDocumentRepository.AddAsync(issuanceDocument);
+            await _unitOfWork.IssuanceDocumentRepository.AddAsync(issuanceDocument);
 
             await _unitOfWork.SaveChangesAsync(cancellationToken);
 

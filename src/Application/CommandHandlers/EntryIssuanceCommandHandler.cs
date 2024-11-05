@@ -11,15 +11,12 @@ namespace InventoryManagement.Application.CommandHandlers
 
     public sealed class EntryIssuanceCommandHandler : IRequestHandler<EntryIssuanceCommand, string>
     {
-        private readonly IProductRepository _productRepository;
-        private readonly IIssuanceDocumentRepository _IssuanceDocumentRepository;
-        private readonly IMediator _mediator;
-        private readonly IUnitOfWork _unitOfWork;
 
-        public EntryIssuanceCommandHandler(IProductRepository productRepository, IIssuanceDocumentRepository IssuanceDocumentRepository, IMediator mediator, IUnitOfWork unitOfWork)
+        private readonly IInventoryManagementUnitOfWork _unitOfWork;
+        private readonly IMediator _mediator;
+
+        public EntryIssuanceCommandHandler(IMediator mediator, IInventoryManagementUnitOfWork unitOfWork)
         {
-            _productRepository = productRepository;
-            _IssuanceDocumentRepository = IssuanceDocumentRepository;
             _mediator = mediator;
             _unitOfWork = unitOfWork;
         }
@@ -28,12 +25,12 @@ namespace InventoryManagement.Application.CommandHandlers
         {
             ValidateCommandRequest(request);
 
-            var product = await _productRepository.GetByBrandNameAndProductTypeAsync(request.BrandName, request.ProductType);
+            var product = await _unitOfWork.ProductRepository.GetByBrandNameAndProductTypeAsync(request.BrandName, request.ProductType);
 
             if (product == null)
             {
                 var creationProductId = await _mediator.Send(new CreationProductCommand(request.BrandName, request.ProductType, request.SerialNumbers), cancellationToken);
-                product = await _productRepository.GetByIdAsync(creationProductId);
+                product = await _unitOfWork.ProductRepository.GetByIdAsync(creationProductId);
             }
 
             var productInstances = ProductInstance.Create(request.SerialNumbers);
@@ -42,7 +39,7 @@ namespace InventoryManagement.Application.CommandHandlers
 
             var issuanceDocument = IssuanceDocument.CreateEntry(productInstances);
 
-            await _IssuanceDocumentRepository.AddAsync(issuanceDocument);
+            await _unitOfWork.IssuanceDocumentRepository.AddAsync(issuanceDocument);
 
             await _unitOfWork.SaveChangesAsync(cancellationToken);
 
