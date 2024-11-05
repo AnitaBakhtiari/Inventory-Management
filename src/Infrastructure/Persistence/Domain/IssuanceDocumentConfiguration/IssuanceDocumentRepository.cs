@@ -1,4 +1,4 @@
-﻿using InventoryManagement.Domain.InventoryChanges;
+﻿using InventoryManagement.Domain.IssuanceDocuments;
 using Microsoft.EntityFrameworkCore;
 
 namespace InventoryManagement.Infrastructure.Persistence.Domain.IssuanceDocumentConfiguration

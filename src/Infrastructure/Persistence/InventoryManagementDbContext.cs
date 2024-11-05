@@ -1,4 +1,4 @@
-﻿using InventoryManagement.Domain.InventoryChanges;
+﻿using InventoryManagement.Domain.IssuanceDocuments;
 using InventoryManagement.Domain.Products;
 using Microsoft.EntityFrameworkCore;
 

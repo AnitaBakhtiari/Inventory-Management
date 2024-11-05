@@ -1,4 +1,4 @@
-﻿using InventoryManagement.Domain.InventoryChanges;
+﻿using InventoryManagement.Domain.IssuanceDocuments;
 
 namespace InventoryManagement.Domain.Products
 {

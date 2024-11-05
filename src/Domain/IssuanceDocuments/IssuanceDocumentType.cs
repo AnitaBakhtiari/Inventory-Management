@@ -1,4 +1,4 @@
-﻿namespace InventoryManagement.Domain.InventoryChanges
+﻿namespace InventoryManagement.Domain.IssuanceDocuments
 {
     public enum IssuanceDocumentType
     {

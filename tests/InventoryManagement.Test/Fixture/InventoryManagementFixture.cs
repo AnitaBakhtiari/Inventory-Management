@@ -1,4 +1,4 @@
-﻿using InventoryManagement.Domain.InventoryChanges;
+﻿using InventoryManagement.Domain.IssuanceDocuments;
 using InventoryManagement.Domain.Products;
 using InventoryManagement.Extensions;
 using InventoryManagement.Infrastructure.Persistence;

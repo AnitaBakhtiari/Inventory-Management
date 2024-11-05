@@ -1,6 +1,6 @@
 ﻿using InventoryManagement.Domain.Products;
 
-namespace InventoryManagement.Domain.InventoryChanges
+namespace InventoryManagement.Domain.IssuanceDocuments
 {
     public class IssuanceDocument
     {

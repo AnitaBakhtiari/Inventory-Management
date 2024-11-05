@@ -4,7 +4,7 @@ using InventoryManagement.Domain.Products;
 using MediatR;
 using System.Net;
 using InventoryManagement.Models;
-using InventoryManagement.Domain.InventoryChanges;
+using InventoryManagement.Domain.IssuanceDocuments;
 
 namespace InventoryManagement.Application.QueryHandlers
 {

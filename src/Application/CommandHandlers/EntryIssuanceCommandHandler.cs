@@ -1,6 +1,6 @@
 ﻿using InventoryManagement.Application.Commands;
 using InventoryManagement.Application.Exceptions;
-using InventoryManagement.Domain.InventoryChanges;
+using InventoryManagement.Domain.IssuanceDocuments;
 using InventoryManagement.Domain.Products;
 using InventoryManagement.Infrastructure.Persistence;
 using MediatR;
