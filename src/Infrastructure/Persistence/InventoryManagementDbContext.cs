@@ -12,7 +12,6 @@ namespace InventoryManagement.Infrastructure.Persistence
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.UseHiLo();
             modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly);
         }
     }

@@ -77,6 +77,7 @@ Goal: Process refunds and replacements.
 - As an inventory manager, I want to perform daily inventory counts to ensure accurate stock levels.
 - As an inventory manager, I want to create a refund issuance for a defective or damaged product and provide a replacement.
 
+
 ### Branching Strategy
 
 We use a Feature Branch Strategy to manage code development. Each feature is developed in isolation, merged into the main branch only after thorough testing.
@@ -105,6 +106,7 @@ docker build -t inventory-management .
     docker run -e "ACCEPT_EULA=1" -e "MSSQL_SA_PASSWORD=MyPass@word" -p 1433:1433 --memory="2g" --cpus="2" -v sqlvolume:/var/opt/mssql -d --name=sql mcr.microsoft.com/azure-sql-edge
   ```
 
+
 ### Run the Application
 
  ```bash
@@ -112,7 +114,6 @@ docker run -p 8080:80 inventory-management
 ```
 
 The API will be available at http://localhost:8080.
-
 
 
 ## Contributing

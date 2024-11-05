@@ -59,7 +59,7 @@ namespace InventoryManagement.Application.CommandHandlers
             {
                 if (item.Quantity <= 0)
                 {
-                    throw new BusinessException(ExceptionMessages.QuantityGreaterThanZero, (int)HttpStatusCode.PreconditionFailed);
+                    throw new BusinessException(ExceptionMessages.QuantityGreaterThanZero, (int)HttpStatusCode.BadRequest);
                 }
             }
         }
