@@ -52,8 +52,6 @@ namespace InventoryManagement.Application.CommandHandlers
 
         private static void ValidateCommandRequest(RefundIssuanceCommand request)
         {
-            if (string.IsNullOrWhiteSpace(request.BrandName))
-                throw new BusinessException(ExceptionMessages.BrandNameIsRequired, (int)HttpStatusCode.BadRequest);
 
             if (string.IsNullOrWhiteSpace(request.SerialNumber))
                 throw new BusinessException(ExceptionMessages.SerialNumbersIsRequired, (int)HttpStatusCode.BadRequest);
