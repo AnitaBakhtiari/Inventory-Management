@@ -72,10 +72,11 @@ Goal: Process refunds and replacements.
 
 ## User Stories
 
-As a inventory manager, I want to add product(ex. laptops) to the inventory with unique serial numbers to prevent duplicates.
-As a inventory manager, I want to create an issuance with a tracking code to manage online sales effectively.
-As an inventory manager, I want to perform daily inventory counts to ensure accurate stock levels.
-As an inventory manager, I want to create a refund issuance for a defective or damaged product and provide a replacement.
+- As a inventory manager, I want to add product(ex. laptops) to the inventory with unique serial numbers to prevent duplicates.
+- As a inventory manager, I want to create an issuance with a tracking code to manage online sales effectively.
+- As an inventory manager, I want to perform daily inventory counts to ensure accurate stock levels.
+- As an inventory manager, I want to create a refund issuance for a defective or damaged product and provide a replacement.
+
 
 ### Branching Strategy
 
@@ -100,9 +101,11 @@ docker build -t inventory-management .
 
 ### Run SQL Server using Docker (optional):
 
-    ```bash
+   ```bash
+
     docker run -e "ACCEPT_EULA=1" -e "MSSQL_SA_PASSWORD=MyPass@word" -p 1433:1433 --memory="2g" --cpus="2" -v sqlvolume:/var/opt/mssql -d --name=sql mcr.microsoft.com/azure-sql-edge
-    ```
+  ```
+
 
 ### Run the Application
 
