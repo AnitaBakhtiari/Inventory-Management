@@ -1,5 +1,6 @@
 ﻿using InventoryManagement.Domain.IssuanceDocuments;
 using InventoryManagement.Domain.Products;
+using InventoryManagement.Infrastructure;
 using InventoryManagement.Infrastructure.Persistence;
 using InventoryManagement.Infrastructure.Persistence.Domain.IssuanceDocumentConfiguration;
 using InventoryManagement.Infrastructure.Persistence.Domain.ProductConfiguration;

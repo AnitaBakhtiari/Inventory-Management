@@ -1,12 +1,7 @@
-﻿namespace InventoryManagement.Infrastructure.Persistence
+﻿using InventoryManagement.Infrastructure.Persistence;
+
+namespace InventoryManagement.Infrastructure
 {
-    public interface IUnitOfWork
-    {
-        Task SaveChangesAsync(CancellationToken cancellationToken = default);
-    }
-
-
-
     public class UnitOfWork(InventoryManagementDbContext context) : IUnitOfWork
     {
         private readonly InventoryManagementDbContext _dbContext = context;
