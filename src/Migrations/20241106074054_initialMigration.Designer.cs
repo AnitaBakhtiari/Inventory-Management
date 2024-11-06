@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InventoryManagement.Migrations
 {
     [DbContext(typeof(InventoryManagementDbContext))]
-    [Migration("20241106034523_initialMigration")]
+    [Migration("20241106074054_initialMigration")]
     partial class initialMigration
     {
         /// <inheritdoc />
@@ -29,7 +29,8 @@ namespace InventoryManagement.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uniqueidentifier")
+                        .HasDefaultValueSql("NEWSEQUENTIALID()");
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
