@@ -11,10 +11,6 @@ namespace InventoryManagement.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateSequence(
-                name: "EntityFrameworkHiLoSequence",
-                incrementBy: 10);
-
             migrationBuilder.CreateTable(
                 name: "IssuanceDocuments",
                 columns: table => new
@@ -32,7 +28,8 @@ namespace InventoryManagement.Migrations
                 name: "Products",
                 columns: table => new
                 {
-                    Id = table.Column<long>(type: "bigint", nullable: false),
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     BrandName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Type = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
@@ -46,7 +43,8 @@ namespace InventoryManagement.Migrations
                 name: "ProductInstances",
                 columns: table => new
                 {
-                    Id = table.Column<long>(type: "bigint", nullable: false),
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     SerialNumber = table.Column<string>(type: "varchar(100)", nullable: false),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IsAvailable = table.Column<bool>(type: "bit", nullable: false),
@@ -112,9 +110,6 @@ namespace InventoryManagement.Migrations
 
             migrationBuilder.DropTable(
                 name: "Products");
-
-            migrationBuilder.DropSequence(
-                name: "EntityFrameworkHiLoSequence");
         }
     }
 }

@@ -4,7 +4,6 @@ using InventoryManagement.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -12,23 +11,18 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InventoryManagement.Migrations
 {
     [DbContext(typeof(InventoryManagementDbContext))]
-    [Migration("20241105114302_initialMigration")]
-    partial class initialMigration
+    partial class InventoryManagementDbContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "8.0.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
-            SqlServerModelBuilderExtensions.UseHiLo(modelBuilder, "EntityFrameworkHiLoSequence");
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.HasSequence("EntityFrameworkHiLoSequence")
-                .IncrementsBy(10);
-
-            modelBuilder.Entity("InventoryManagement.Domain.InventoryChanges.IssuanceDocument", b =>
+            modelBuilder.Entity("InventoryManagement.Domain.IssuanceDocuments.IssuanceDocument", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -51,7 +45,7 @@ namespace InventoryManagement.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
 
-                    SqlServerPropertyBuilderExtensions.UseHiLo(b.Property<long>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
                     b.Property<string>("BrandName")
                         .IsRequired()
@@ -75,7 +69,7 @@ namespace InventoryManagement.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
 
-                    SqlServerPropertyBuilderExtensions.UseHiLo(b.Property<long>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
@@ -125,7 +119,7 @@ namespace InventoryManagement.Migrations
 
             modelBuilder.Entity("IssuanceDocumentProductInstance", b =>
                 {
-                    b.HasOne("InventoryManagement.Domain.InventoryChanges.IssuanceDocument", null)
+                    b.HasOne("InventoryManagement.Domain.IssuanceDocuments.IssuanceDocument", null)
                         .WithMany()
                         .HasForeignKey("IssuanceDocumentsId")
                         .OnDelete(DeleteBehavior.Cascade)
