@@ -8,20 +8,4 @@ namespace InventoryManagement.Infrastructure.Persistence
         public IProductRepository ProductRepository { get; }
         public IIssuanceDocumentRepository IssuanceDocumentRepository { get; }
     }
-
-
-    public class InventoryManagementUnitOfWork : UnitOfWork, IInventoryManagementUnitOfWork
-    {
-        public IProductRepository ProductRepository { get; }
-        public IIssuanceDocumentRepository IssuanceDocumentRepository { get; }
-
-        public InventoryManagementUnitOfWork(InventoryManagementDbContext dbContext,
-            IProductRepository productRepository,
-            IIssuanceDocumentRepository issuanceDocumentRepository) : base(dbContext)
-        {
-            ProductRepository = productRepository;
-            IssuanceDocumentRepository = issuanceDocumentRepository;
-        }
-
-    }
 }
